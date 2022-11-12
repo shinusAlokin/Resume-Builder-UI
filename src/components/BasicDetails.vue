@@ -10,7 +10,6 @@
         label="Name"
         required
         clearable
-        variant="solo"
       ></v-text-field>
 
       <v-text-field
@@ -20,7 +19,6 @@
         label="E-mail"
         required
         clearable
-        variant="solo"
       ></v-text-field>
 
       <v-text-field

@@ -16,6 +16,9 @@
         <span class="looper-span" v-for="item in content" :key="content.basic_details_id">
         <div class="listing-content" v-for="v in item" :key="v.basic_details_id">
  
+            <template>
+                <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(v.basic_details_id)" /> 
+            </template>   
             <ul class="content-list">
                     <li class="list name-list">{{v.name}}</li>
                     <li class="list email-list">{{v.email_address}}</li>
@@ -35,9 +38,7 @@
                                 </v-list-item>
                                 <v-list-item class="list-items">                                
                                     <v-list-item-title><v-btn @click="dialog=true">Delete</v-btn> </v-list-item-title>
-                                    <template>
-                                        <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(v.basic_details_id)" /> 
-                                    </template>   
+                                    
                                 </v-list-item>
                             </v-list>                      
                         </v-menu>       
@@ -62,18 +63,17 @@
                             <template v-slot:activator="{ props }">
                                 <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
                             </template>
-
+                            <template>
+                                    <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(v.basic_details_id)" /> 
+                            </template>
                             <v-list>
                                 <v-list-item class="list-items">                                    
                                     <v-list-item-title> <v-btn>Edit</v-btn> </v-list-item-title>
                                 </v-list-item>
                                 <v-list-item class="list-items">        
-                                    <v-list-item-title><v-btn @click="dialog = true">Delete</v-btn> </v-list-item-title>
+                                    <v-list-item-title><v-btn @click.stop="dialog = true">Delete</v-btn> </v-list-item-title>
                                 </v-list-item>
                             </v-list>
-                            <template>
-                                    <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(v.basic_details_id)" /> 
-                                </template>
                         </v-menu>
                     </span>                   
             </ul>

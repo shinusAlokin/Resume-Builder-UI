@@ -20,9 +20,10 @@
     v-model:city="item.city"
     v-model:country="item.country"
     v-model:zip_code="item.zip_code"
+    :countries="countries"
     @add-data="adder(locationDetails)"
     @remove-data="remover(locationDetails)" 
-    increment="count"/>
+    />
   </div>
   
 
@@ -39,12 +40,11 @@
     />
   </div>
 
-  <div class="form-cont education" v-for="item in workDetails">
+  <div class="form-cont work" v-for="item in workDetails">
     <Work 
-      v-model:qualification="item.qualification"
-      v-model:course_name="item.course_name"
-      v-model:institute_name="item.institute_name"
-      v-model:location="item.location"
+      v-model:organisation="item.organisation"
+      v-model:job_role="item.job_role"
+      v-model:key_roles="item.key_roles"
       v-model:start_date="item.start_date"
       v-model:end_date="item.end_date"
       @add-data="adder(workDetails)"
@@ -106,6 +106,7 @@ import SocialMedia from '@/components/SocialMedia.vue'
       return{
         alert: false,
         count:1,
+        countries:['India', 'China'],
 
         basic:{
         name: '',
@@ -121,7 +122,8 @@ import SocialMedia from '@/components/SocialMedia.vue'
         projects:[{project_title:'', skills:'', description:''}],
         educationDetails:[{qualification:'', course_name:'', 
                           institute_name:'', location:'', start_date:'', end_date:''}],
-        workDetails:[{network:'', user_name:'', url:''}],
+        workDetails:[{organisation:'', job_role:'', 
+                          key_roles:'',  start_date:'', end_date:''}],
       
         }
     },
@@ -146,6 +148,8 @@ import SocialMedia from '@/components/SocialMedia.vue'
           phone_number: this.basic.phone,
           image_url: this.basic.image,
           summary: this.basic.summary,
+
+
           location_details:[...this.locationDetails],
           social_media:[...this.socialMedia],
           work_details:[...this.workDetails],
@@ -155,14 +159,14 @@ import SocialMedia from '@/components/SocialMedia.vue'
         }
         console.log(newResume)
 
-        await axios.post(`http://127.0.0.1:8000/api/new/resume`, newResume)
-        .then((res) =>{
-          this.alert = true
-          this.name=''
-          console.log(res.data)
-        }).catch((err) =>{
-          console.log(err)
-        })
+      //   await axios.post(`http://127.0.0.1:8000/api/new/resume`, newResume)
+      //   .then((res) =>{
+      //     this.alert = true
+      //     this.name=''
+      //     console.log(res.data)
+      //   }).catch((err) =>{
+      //     console.log(err)
+      //   })
       },
       adder(list){
         const newDict = list[0]
@@ -186,7 +190,7 @@ import SocialMedia from '@/components/SocialMedia.vue'
       background-color: teal;
     }
 
-    main-form{
+    .main-form{
       margin: 1em;
       box-shadow: 5px 5px 20px rgba(240, 230, 245, 1);
       padding: 1em;

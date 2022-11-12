@@ -6,7 +6,7 @@
       </v-btn> -->
 
       <v-dialog
-        v-model="dialog"
+      v-model="dialog"
       width="600"
       >
       <v-alert
