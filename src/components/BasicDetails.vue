@@ -1,5 +1,5 @@
 <template>
-    <v-expansion-panels>
+    <v-expansion-panels focusable >
         <v-expansion-panel
           title="Basic Details"
         >

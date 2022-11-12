@@ -6,30 +6,22 @@
         >
         <v-expansion-panel-text>
       <v-text-field
-        v-model="projectTitle"
-        :counter="10"
+        @input="$emit('update:project_title', $event.target.value)"
         label="Project Title"
         required
       ></v-text-field>
+
       <v-text-field
-      v-model="skills"
+    @input="$emit('update:skills', $event.target.value)"
     label="Skills"
     ></v-text-field>
+
       <v-textarea
-      v-model="description"
+      @input="$emit('update:description', $event.target.value)"
     label="Description"
     ></v-textarea>
-
-  
-      <v-btn
-        class="mr-4 btn"
-        @click="submit"
-      >
-        submit
-      </v-btn>
-      <v-btn @click="clear">
-        clear
-      </v-btn>
+    <v-btn @click="[addMore, $emit('add-data', data)]">Add</v-btn>
+      <v-btn @click="[$emit('remove-data', data), remove]">Remove</v-btn>
         </v-expansion-panel-text>
       
       </v-expansion-panel>
@@ -38,65 +30,29 @@
 
 
 <script>
-  import axios from 'axios'
-  
-  import { useVuelidate } from '@vuelidate/core'
-    
-  import { required, maxLength, email } from '@vuelidate/validators'
-  
-  
-    export default {
-        
-      setup(){
-      return {
-        v$: useVuelidate()
-      }
-    },
-  
-      validations: {
-        name: { required, maxLength: maxLength(10) },
-        email: { required, email },
-        select: { required },
-        checkbox: {
-          checked (val) {
-            return val
-          },
-        },
-      },
-
-      name: "BasicDetails",
+    export default{
+        name: "Projects",
         props:{
-            value:{
-                type: String,
-                default: ""
+          project_title: String,
+          skills: String,
+          description: String
+        },
+        data(){
+            return{
+              count: 1
             }
         },
-  
-      data(){
-        return{
-          network: '',
-          url: '',
-          username: '',
-        }
-        
-      },
+        methods:{
+        remove(){
+          if (this.count > 1){
+            this.count--
+          }
+          
+        },
+        addMore(){
+          this.count++
 
-      watch:{
-        name(val){
-            this.$emit('updated', val)
-        },
-        email(val){
-            this.$emit('updated', val)
-        },
-        phone(val){
-            this.$emit('updated', val)
-        },
-        image(val){
-            this.$emit('updated', val)
-        },
-        summary(val){
-            this.$emit('updated', val)
-        },
+        }
       }
     }
 </script>

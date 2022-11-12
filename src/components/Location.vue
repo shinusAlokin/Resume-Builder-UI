@@ -1,5 +1,5 @@
  <template>
-    <v-expansion-panels >
+    <v-expansion-panels focusable>
         <v-expansion-panel
           title="Location Details"
           
@@ -40,7 +40,7 @@
         required
       ></v-text-field>
       <v-btn @click="[addMore, $emit('add-data', data)]">Add</v-btn>
-      <v-btn @click="remove">Remove</v-btn>
+      <v-btn @click="[$emit('remove-data', data), remove]">Remove</v-btn>
   </v-expansion-panel-text>
  
       </v-expansion-panel>
@@ -56,12 +56,14 @@
           street_name: String,
           city: String,
           country: String,
-          zip_code: String
+          zip_code: String,
+          
         },
         data(){
           return{
             items:['India', 'America', 'England', 'France', 'Pakistan', 'Russia'],
             count:1
+
       }
     },
     methods:{

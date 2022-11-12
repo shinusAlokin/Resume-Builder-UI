@@ -1,5 +1,6 @@
 <template>
-  <div class="main-cont">
+  <v-app-bar>
+    <div class="main-cont">
     <h2>Resume Builder</h2>
     <div class="nav-links">
       <router-link to="/list" class="nav-link">Home</router-link>
@@ -7,6 +8,8 @@
    
   </div>
   <router-view/>
+  </v-app-bar>
+  
     
 </template>
 
