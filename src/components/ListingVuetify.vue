@@ -3,7 +3,7 @@
         
     </div>
         <!-- <SearchBar  v-model="search" placeholder="search by name"/> -->
-            <div class="input-container">
+            <!-- <div class="input-container">
                 
             <input type="text" v-model="search" placeholder="Search by name or email" @input="getSearchContent"/>
         </div>
@@ -79,9 +79,98 @@
             </ul>
         </div>
     </span>
-    </div>
-        
-        
+    </div> -->
+
+<!-- <div class="input-container">
+                
+            <input type="text" v-model="search" placeholder="Search by name or email" @input="getSearchContent"/>
+        </div> -->
+
+  <div class="input-container">
+    <v-text-field
+        density="compact"
+        variant="solo"
+        placeholder="Search by name or email"
+        append-inner-icon="mdi-magnify"
+        v-model="search"
+        @input="getSearchContent"
+      ></v-text-field>
+  </div>
+
+    
+
+  <v-table class="content-table" >
+    <thead >
+      <tr>
+        <th class="text-left" v-for="item in heading" >
+          {{item.text}}
+        </th>
+        <th></th>
+      </tr>
+    </thead >
+    <tbody v-for="item in content" :key="item.basic_details_id" v-if="searchContent">
+      <tr
+        v-for="i in item"
+        :key="i.basic_details_id"
+      >
+        <td>{{ i.name }}</td>
+        <td>{{ i.email_address }}</td>
+        <td>{{ i.phone_number }}</td>
+        <td>{{ i.date_applied }}</td>
+        <td>
+            <v-menu>
+                <template v-slot:activator="{ props }">
+                    <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
+                </template>
+                <v-list>
+                    <v-list-item class="list-items">                                    
+                        <v-list-item-title> <v-btn>Edit</v-btn> </v-list-item-title>
+                    </v-list-item>
+                        <v-list-item class="list-items">        
+                            <v-list-item-title><v-btn @click.stop="dialog = true">Delete</v-btn> </v-list-item-title>
+                                </v-list-item>
+                        </v-list>
+                    </v-menu>
+        </td>
+        <template>
+                                    <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(i.basic_details_id)" /> 
+                            </template>
+      </tr>
+      
+    </tbody>
+
+    <tbody v-for="item in searchedContent"  v-else>
+      <tr
+        v-for="i in item"
+        :key="i.basic_details_id"
+      >
+        <td>{{ i.name }}</td>
+        <td>{{ i.email_address }}</td>
+        <td>{{ i.phone_number }}</td>
+        <td>{{ i.date_applied }}</td>
+        <td>
+            <v-menu>
+                <template v-slot:activator="{ props }">
+                    <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
+                </template>
+                            
+                <v-list>
+                    <v-list-item class="list-items">                                    
+                        <v-list-item-title> <v-btn>Edit</v-btn> </v-list-item-title>
+                    </v-list-item>
+                        <v-list-item class="list-items">        
+                            <v-list-item-title><v-btn @click.stop="dialog = true">Delete</v-btn> </v-list-item-title>
+                                </v-list-item>
+                        </v-list>
+                    </v-menu>
+        </td>
+        <template>
+                                    <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(v.basic_details_id)" /> 
+                            </template>
+      </tr>
+    </tbody>
+  </v-table>
+
        <router-view />
 </template>
 
@@ -138,20 +227,30 @@ export default{
     async deleteBasic(id){
         await axios.delete(`http://127.0.0.1:8000/delete/${id}`)
         window.location.reload()
-    }
+    },
+    
     },
     created(){
         this.getContent()
     },
+
+    
     computed:{
-        async filteredPost(){
-             return this.content.filter((cont) => cont.name == this.search)
+        searchContent(){
+            return (this.searchedContent.length == 0 || this.search === '')
+
         }
+
     },
 }
 </script>
 
 <style scoped>
+
+    th{
+        background-color: rgba(0, 128, 128, 0.4);
+    }
+
 
     .main-container-listing-comp{
         width: 100%;
@@ -167,6 +266,7 @@ export default{
 
     .input-container{
         margin-top: -1.5em;
+        width: 300px;
     }
 
     .input-container > input{
@@ -174,6 +274,7 @@ export default{
         border: 1px solid #333;
         padding: 1em;
         height: 30px;
+        margin-bottom: 1em;
     }
 
    ul{
@@ -245,6 +346,10 @@ export default{
     .link-edit-dlt{
         text-decoration: none;
         color: #333;
+    }
+
+    .content-table{
+        width: 100%;
     }
 
 </style>

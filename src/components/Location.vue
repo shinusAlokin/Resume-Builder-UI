@@ -10,6 +10,8 @@
         @input="$emit('update:address_line', $event.target.value)"
         :counter="10"
         label="Address Line"
+        variant="underlined"
+        color="green"
         required
       ></v-text-field>
 
