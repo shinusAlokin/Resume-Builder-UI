@@ -1,30 +1,63 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
+  <div class="main-cont">
+    <h2>Resume Builder</h2>
+    <div class="nav-links">
+      <router-link to="/list" class="nav-link">Home</router-link>
+    </div>
+   
+  </div>
   <router-view/>
+    
 </template>
 
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+<script>
+
+export default {
+  name: 'App',
+
+  data: () => ({
+    //
+  }),
+};
+</script>
+
+<style >
+.main-cont{
+  position: relative;
+  width: 100%;
+  background-color: rgb(58, 57, 57);
+  color: wheat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
 }
 
-nav {
-  padding: 30px;
+.nav-links{
+  position: relative;
+  left: 30%;
 }
 
-nav a {
-  font-weight: bold;
-  color: #2c3e50;
+.nav-link{
+  text-decoration: none;
+  color: wheat;
 }
+.nav-link:hover{
+  color: teal;
+}
+/* .main-container > h2{
+  position: relative;
+  left: 50%;
+} */
 
-nav a.router-link-exact-active {
-  color: #42b983;
-}
+  /* .nav-links{
+    position: relative;
+    margin-left: auto;
+    text-decoration: none;
+  }
+
+ .nav-links > a{
+    text-decoration: none;
+    color: teal;
+  } */
 </style>
