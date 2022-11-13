@@ -24,8 +24,9 @@ export default {
 <style >
 .main-cont{
   width: 100%;
-  background-color:  rgba(0, 128, 128, 0.7);
-  color:  rgb(45, 2, 45);
+  background-color: rgb(22, 68, 68);
+  color:  #ddd;
+  box-shadow: 5px 2px 10px #ddd;
   padding: 1em 0;
 }
 .nav-bar{
@@ -44,7 +45,7 @@ export default {
 
 .nav-link{
   text-decoration: none;
-  color: rgb(45, 2, 45);
+  color: #ddd;
 }
 .nav-link:hover{
   color: #fff;

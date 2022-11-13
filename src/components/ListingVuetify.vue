@@ -8,7 +8,7 @@
         density="compact"
         variant="solo"
         placeholder="Search by name or email"
-        append-inner-icon="mdi-magnify"
+        prepend-inner-icon="mdi-magnify"
         v-model="search"
         @input="getSearchContent"
       ></v-text-field>

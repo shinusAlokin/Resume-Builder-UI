@@ -1,7 +1,12 @@
 <template>
-  <div v-if="alert">
+    <div v-if="alert">
     <v-alert v-model="alert" type="success" closable>Successfully created.</v-alert>
   </div>
+  <div  v-else-if="error_alert">
+    <v-alert v-model="alert" type="error" closable>{{failed}}</v-alert>
+  </div>
+  <div class="div" v-else></div>
+  
     
 <v-form class="main-form">
   <div class="form-cont basic-detail">
@@ -106,9 +111,11 @@ import SocialMedia from '@/components/SocialMedia.vue'
 
     data(){
       return{
+        error:'',
         alert: false,
+        error_alert: false,
         count:1,
-        countries:['India', 'China'],
+        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy'],
 
         basic:{
         name: '',
@@ -119,7 +126,7 @@ import SocialMedia from '@/components/SocialMedia.vue'
         },
 
         locationDetails:[{address_line: '',street_name: '',city: '',country: '',zip_code:''},],
-        skillDetails:[{skill:'Javascript',rating:''}],
+        skillDetails:[{skill:'',rating:''}],
         socialMedia:[{network:'', user_name:'', url:''}],
         projects:[{project_title:'', skills:'', description:''}],
         educationDetails:[{qualification:'', course_name:'', 
@@ -137,6 +144,12 @@ import SocialMedia from '@/components/SocialMedia.vue'
         Skills,
         Projects, 
         SocialMedia
+      },
+
+      computed:{
+        failed(){
+          return this.error
+        }
       },
 
 
@@ -159,15 +172,30 @@ import SocialMedia from '@/components/SocialMedia.vue'
           skills:[...this.skillDetails],
           projects:[...this.projects],
         }
+
         console.log(newResume)
 
         await axios.post(`http://127.0.0.1:8000/api/new/resume`, newResume)
         .then((res) =>{
-          this.alert = true
           console.log(res.data)
-        }).catch((err) =>{
-          console.log(err)
+          if(res.data.hasOwnProperty('error_message')){
+            console.log("key exists")
+            this.alert = false
+            this.error_alert = true
+            this.error = res.data.error_message
+          }
+          else{
+            this.alert=true
+            this.error_alert = false
+          }
+          
         })
+        .catch((err) =>{
+          console.log(err)
+          
+          
+        })
+        
       },
 
       adder(listDict){

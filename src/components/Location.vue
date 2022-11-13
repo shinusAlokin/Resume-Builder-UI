@@ -5,11 +5,10 @@
           
         >
         <v-expansion-panel-text v-for="(i, k) in count" :key="k">
-
       <v-text-field
         @input="$emit('update:address_line', $event.target.value)"
           :value="address_line"
-        label="Address Line"
+        placeholder="Address Line"
         variant="underlined"
         color="teal"
         clearable
@@ -33,14 +32,26 @@
         color="teal"
       ></v-text-field>
 
-      <v-select
+      <v-combobox
+          :value="country"
+          :items="countries"
+          label="Country"
+          @input="$emit('update:country', $event.target.value)"
+          @select="$emit('update:country', $event.target.value)"
+          @change="$emit('update:country', $event.target.value)"
+          variant="underlined"
+          color="teal"
+        ></v-combobox>
+
+      <!-- <v-select
       :value="country"
-      :items="countries"
-      @select="$emit('update:country', $event.target.value)"
+      :items = "countries" 
+      @change="$emit('update:country', $event.target.options[$event.target.options.selectedIndex].text)"
       label="Country"
       variant="underlined"
         color="teal"
-    ></v-select>
+    > 
+  </v-select>-->
 
       <v-text-field
       @input="$emit('update:zip_code', $event.target.value)"
