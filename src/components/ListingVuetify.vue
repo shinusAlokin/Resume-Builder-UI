@@ -2,89 +2,6 @@
     <div>
         
     </div>
-        <!-- <SearchBar  v-model="search" placeholder="search by name"/> -->
-            <!-- <div class="input-container">
-                
-            <input type="text" v-model="search" placeholder="Search by name or email" @input="getSearchContent"/>
-        </div>
-        <div class="listing-heading">
-            <ul class="heading-list">
-                <li  v-for="item in heading" :key="item.id">{{ item.text }}</li>
-            </ul>
-        </div>
-        <div class="listing-container" v-if="search==='' || searchedContent.length == 0 ">
-        <span class="looper-span" v-for="item in content" :key="content.basic_details_id">
-        <div class="listing-content" v-for="v in item" :key="v.basic_details_id">
- 
-            <template>
-                <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(v.basic_details_id)" /> 
-            </template>   
-            <ul class="content-list">
-                    <li class="list name-list">{{v.name}}</li>
-                    <li class="list email-list">{{v.email_address}}</li>
-                    <li class="list phone-list">{{v.phone_number}}</li>
-                    <li class="list date-list">{{v.date_applied}}</li>
-
-                    <span class="icon-span">            
-                        <v-menu>
-                                
-                            <template v-slot:activator="{ props }">
-                                <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
-                            </template>
-                            
-                            <v-list>
-                                <v-list-item class="list-items">                                    
-                                    <v-list-item-title> <v-btn class="edit-dlt-btn">Edit</v-btn> </v-list-item-title>
-                                </v-list-item>
-                                <v-list-item class="list-items">                                
-                                    <v-list-item-title><v-btn @click="dialog=true">Delete</v-btn> </v-list-item-title>
-                                    
-                                </v-list-item>
-                            </v-list>                      
-                        </v-menu>       
-                    </span>                   
-            </ul>  
-        </div>
-    </span>
-    </div>
-
-    <div class="listing-container" v-else>
-        <span class="looper-span" v-for="item in searchedContent">
-        <div class="listing-content" v-for="v in item" >
-            
-            <ul class="content-list">
-                    <li class="list name-list">{{v.name}}</li>
-                    <li class="list email-list">{{v.email_address}}</li>
-                    <li class="list phone-list">{{v.phone_number}}</li>
-                    <li class="list date-list">{{v.date_applied}}</li>
-                    
-                    <span class="icon-span">
-                        <v-menu>
-                            <template v-slot:activator="{ props }">
-                                <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
-                            </template>
-                            <template>
-                                    <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(v.basic_details_id)" /> 
-                            </template>
-                            <v-list>
-                                <v-list-item class="list-items">                                    
-                                    <v-list-item-title> <v-btn>Edit</v-btn> </v-list-item-title>
-                                </v-list-item>
-                                <v-list-item class="list-items">        
-                                    <v-list-item-title><v-btn @click.stop="dialog = true">Delete</v-btn> </v-list-item-title>
-                                </v-list-item>
-                            </v-list>
-                        </v-menu>
-                    </span>                   
-            </ul>
-        </div>
-    </span>
-    </div> -->
-
-<!-- <div class="input-container">
-                
-            <input type="text" v-model="search" placeholder="Search by name or email" @input="getSearchContent"/>
-        </div> -->
 
   <div class="input-container">
     <v-text-field
@@ -96,9 +13,7 @@
         @input="getSearchContent"
       ></v-text-field>
   </div>
-
-    
-
+  
   <v-table class="content-table" >
     <thead >
       <tr>
@@ -124,17 +39,16 @@
                 </template>
                 <v-list>
                     <v-list-item class="list-items">                                    
-                        <v-list-item-title> <v-btn>Edit</v-btn> </v-list-item-title>
+                        <v-list-item-title> <router-link :to="`/edit/${i.basic_details_id}`" class="edit-link"><v-btn>Edit</v-btn></router-link> </v-list-item-title>
                     </v-list-item>
                         <v-list-item class="list-items">        
                             <v-list-item-title><v-btn @click.stop="dialog = true">Delete</v-btn> </v-list-item-title>
                                 </v-list-item>
                         </v-list>
                     </v-menu>
+                    
         </td>
-        <template>
-                                    <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(i.basic_details_id)" /> 
-                            </template>
+        <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(i.basic_details_id)" /> 
       </tr>
       
     </tbody>
@@ -156,7 +70,8 @@
                             
                 <v-list>
                     <v-list-item class="list-items">                                    
-                        <v-list-item-title> <v-btn>Edit</v-btn> </v-list-item-title>
+                        <v-list-item-title> <router-link :to="`/edit/${i.basic_details_id}`" class="edit-link"><v-btn>Edit</v-btn></router-link> </v-list-item-title>
+                        
                     </v-list-item>
                         <v-list-item class="list-items">        
                             <v-list-item-title><v-btn @click.stop="dialog = true">Delete</v-btn> </v-list-item-title>
@@ -164,14 +79,12 @@
                         </v-list>
                     </v-menu>
         </td>
-        <template>
-                                    <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(v.basic_details_id)" /> 
-                            </template>
+                                    <DeleteDialog :dialog="dialog" @delete-resume="deleteBasic(i.basic_details_id)" /> 
       </tr>
     </tbody>
   </v-table>
-
-       <router-view />
+  <router-view />
+       
 </template>
 
 <script>
@@ -249,6 +162,10 @@ export default{
 
     th{
         background-color: rgba(0, 128, 128, 0.4);
+    }
+    .edit-link{
+        text-decoration: none;
+        color: #333;
     }
 
 

@@ -102,6 +102,8 @@ import SocialMedia from '@/components/SocialMedia.vue'
 
   export default {
 
+    name:"ResumePageView",
+
     data(){
       return{
         alert: false,
@@ -117,7 +119,7 @@ import SocialMedia from '@/components/SocialMedia.vue'
         },
 
         locationDetails:[{address_line: '',street_name: '',city: '',country: '',zip_code:''},],
-        skillDetails:[{skill:'',rating:''}],
+        skillDetails:[{skill:'Javascript',rating:''}],
         socialMedia:[{network:'', user_name:'', url:''}],
         projects:[{project_title:'', skills:'', description:''}],
         educationDetails:[{qualification:'', course_name:'', 
@@ -159,19 +161,27 @@ import SocialMedia from '@/components/SocialMedia.vue'
         }
         console.log(newResume)
 
-      //   await axios.post(`http://127.0.0.1:8000/api/new/resume`, newResume)
-      //   .then((res) =>{
-      //     this.alert = true
-      //     this.name=''
-      //     console.log(res.data)
-      //   }).catch((err) =>{
-      //     console.log(err)
-      //   })
+        await axios.post(`http://127.0.0.1:8000/api/new/resume`, newResume)
+        .then((res) =>{
+          this.alert = true
+          console.log(res.data)
+        }).catch((err) =>{
+          console.log(err)
+        })
       },
-      adder(list){
-        const newDict = list[0]
-        list.push(newDict)
+
+      adder(listDict){
+        let keys = []
+        for(let key in listDict[0]){
+          keys.push(key)
+        }
+        let newDict = {}
+        keys.forEach((i) => {
+          newDict[i] = ''
+        })
+        listDict.push(newDict)
       },
+
       remover(list){
         if (list.length > 1){
           list.pop()

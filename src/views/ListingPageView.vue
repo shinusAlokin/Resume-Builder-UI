@@ -47,13 +47,12 @@
   }
   
   .left-container{
-    width: 16%;
+    width: 10%;
   }
   .right-container{
-    width: 100%;
+    width: 90%;
     padding: 1em;
     margin-top: 10px;
-    left: 30%;
     display: flex;
     align-items: flex-start;
     justify-content: center;

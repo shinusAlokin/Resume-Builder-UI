@@ -5,18 +5,22 @@
         >
         <v-expansion-panel-text v-for="(i, k) in count" :key="k">
       <v-text-field
+      :value="skill"
         @input="$emit('update:skill', $event.target.value)"
-        :counter="10"
         label="Skill"
         required
+        variant="underlined"
+        color="teal"
       ></v-text-field>
 
       <v-text-field
     @input="$emit('update:rating', $event.target.value)"
     label="Rating"
+    :value="rating"
     placeholder="Out of 10"
     :items="range"
-    variant="solo"
+    variant="underlined"
+    color="teal"
     ></v-text-field>
 
   

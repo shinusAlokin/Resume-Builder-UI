@@ -5,9 +5,11 @@
         >
         <v-expansion-panel-text>
       <v-text-field
-          :value="name"
-          @input="$emit('update:name', $event.target.value)"
+        :value="name"
+        @input="$emit('update:name', $event.target.value)"
         label="Name"
+        variant="underlined"
+        color="teal"
         required
         clearable
       ></v-text-field>
@@ -17,6 +19,8 @@
       @input="$emit('update:email', $event.target.value)"
           :value="email"
         label="E-mail"
+        variant="underlined"
+        color="teal"
         required
         clearable
       ></v-text-field>
@@ -25,7 +29,8 @@
       :value="phone"
         @input="$emit('update:phone', $event.target.value)"
         label="Phone Number"
-          variant="solo"
+        variant="underlined"
+        color="teal"
         required
         clearable
       ></v-text-field>
@@ -36,13 +41,16 @@
         label="Image Url"
         required
         clearable
-        variant="solo"
+        variant="underlined"
+        color="teal"
       ></v-text-field>
 
       <v-textarea
       :value="summary"
           @input="$emit('update:summary', $event.target.value)"
         label="Summary"
+        variant="underlined"
+        color="teal"
         required
         clearable
       ></v-textarea>
