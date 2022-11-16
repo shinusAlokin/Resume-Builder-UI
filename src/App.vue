@@ -1,11 +1,10 @@
 <template>
     <div class="main-cont">
       <nav class="nav-bar">
-        <h2>Resume Builder</h2>
-        <div class="nav-links">
-          <router-link to="/list" class="nav-link">Home</router-link>
-        </div>
+        <h1>Resume Builder</h1>
+        
       </nav>
+      
   </div>
   <router-view/>
 </template>
@@ -15,18 +14,45 @@
 export default {
   name: 'App',
 
-  data: () => ({
-    //
-  }),
+  data(){
+    return{
+      validRules: [
+      v => !!v || 'This field is required is required',
+      ]
+    }
+  },
 };
 </script>
 
 <style >
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;900&family=Roboto+Slab:wght@400;800&display=swap');
+
+
+h1{
+ font-weight: 900;
+}
+
+hr{
+  opacity: 0.3;
+  width: auto;
+}
+
+body{
+  font-family: 'Poppins', sans-serif;
+}
+
+.form-cont{
+      margin-bottom: 0.8em;
+      font-weight: 500;
+    }
+
+
 .main-cont{
   width: 100%;
-  background-color: rgb(22, 68, 68);
-  color:  #ddd;
-  box-shadow: 5px 2px 10px #ddd;
+  background-color: rgba(236, 246, 246, 0.1);
+  color: teal;
+ box-shadow: 0 2px 4px 0 rgba(0,0,0,.1);
   padding: 1em 0;
 }
 .nav-bar{
@@ -35,19 +61,38 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  position: relative;
-}
-.nav-links{
-  position: relative;
-  left: 15%;
-  margin-right: 0.4em;
 }
 
-.nav-link{
-  text-decoration: none;
-  color: #ddd;
+.v-row{
+  align-items: center;
 }
-.nav-link:hover{
-  color: #fff;
+
+.v-expansion-panel-title__overlay{
+  font-size: 1.2rem;
+}
+
+.adder{
+  margin: 10px 15px;
+}
+
+
+.nav-links{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    position: relative;
+    left: 5%;
+    margin: 1em 0;
+  }
+  
+
+  .nav-link{
+    color:  #00848E;
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+
+  .nav-links a{
+  font-size: 1rem;
 }
 </style>

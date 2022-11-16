@@ -1,14 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
 import ListingPageView from '../views/ListingPageView'
 import ResumePageView from '../views/ResumePageView'
 import EditResumePageView from '../views/EditResumePageView'
+import Preview from '../views/Preview.vue'
 
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: HelloWorld
+    component: ListingPageView,
+    meta:{
+      reload:true
+    }
   },
   {
     path: '/list',
@@ -24,6 +27,14 @@ const routes = [
     path: '/edit/:id',
     name: 'editResume',
     component: EditResumePageView
+  },
+  {
+    path: '/preview/:id',
+    name: 'previewResume',
+    component: Preview,
+    meta:{
+      reload:true
+    }
   }
 ]
 const router = createRouter({

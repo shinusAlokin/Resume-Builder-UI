@@ -1,99 +1,137 @@
 <template>
-    <div v-if="alert">
-    <v-alert v-model="alert" type="success" closable>Successfully created.</v-alert>
+  <div>
+    <v-alert v-model="error_alert" type="error" closable variant="outlined"
+    dense
+      >You should enter value for all the fields</v-alert
+    >
   </div>
-  <div  v-else-if="error_alert">
-    <v-alert v-model="alert" type="error" closable>{{failed}}</v-alert>
+
+  <div class="nav-links">
+    <router-link to="/list" class="nav-link">
+      <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home
+      Page</router-link
+    >
   </div>
-  <div class="div" v-else></div>
-  
+
+  <template>
+    <Dialog
+      :dialog="dialog"
+      alertType="success"
+      buttonColor="Teal"
+      action="Preview"
+      :preview="preview"
+      heading="Created"
+      :to="`/preview/${currenLastId}`"
+      message="Resume created successfully"
+    />
+  </template>
+
+  <template>
+    <Dialog
+      :dialog="cancelDialog"
+      alertType="warning"
+      buttonColor="Teal"
+      action="Yes"
+      :preview="preview"
+      heading="Cancel"
+      to="/"
+      message="Cancel resume creation and go back to Home Page?"
+    />
+  </template>
+
+  <!-- <template>
+    <Dialog 
+        :dialog="dialog" 
+        alertType = "success"
+        action = "Preview"
+        buttonColor = "Teal"
+        message="Resume created successfully"
+        @something = ''
+    />
+  </template> -->
+
+  <v-form class="main-form">
+    <div class="form-cont basic-detail">
+      <BasicDetails
+        v-model:name="basic.name"
+        v-model:email="basic.email"
+        v-model:phone="basic.phone"
+        v-model:image="basic.image"
+        v-model:summary="basic.summary"
+      />
+    </div>
+
+    <div class="form-cont location" v-for="item in locationDetails">
+      <Location
+        v-model:address_line="item.address_line"
+        v-model:street_name="item.street_name"
+        v-model:city="item.city"
+        v-model:country = "item.country"
+        v-model:zip_code="item.zip_code"
+        @add-data="adder(locationDetails)"
+        @remove-data="remover(locationDetails)"
+      />
+    </div>
     
-<v-form class="main-form">
-  <div class="form-cont basic-detail">
-    <BasicDetails 
-    v-model:name="basic.name"
-    v-model:email="basic.email"
-    v-model:phone="basic.phone"
-    v-model:image="basic.image"
-    v-model:summary="basic.summary"
-     />
-  </div>
-  
-  <div class="form-cont location" v-for="item in locationDetails">
-    <Location v-model:address_line="item.address_line"
-    v-model:street_name="item.street_name"
-    v-model:city="item.city"
-    v-model:country="item.country"
-    v-model:zip_code="item.zip_code"
-    :countries="countries"
-    @add-data="adder(locationDetails)"
-    @remove-data="remover(locationDetails)" 
-    />
-  </div>
-  
 
-  <div class="form-cont education" v-for="item in educationDetails">
-    <Education 
-      v-model:qualification="item.qualification"
-      v-model:course_name="item.course_name"
-      v-model:institute_name="item.institute_name"
-      v-model:location="item.location"
-      v-model:start_date="item.start_date"
-      v-model:end_date="item.end_date"
-      @add-data="adder(educationDetails)"
-      @remove-data="remover(educationDetails)"
-    />
-  </div>
+    <div class="form-cont education" v-for="item in educationDetails">
+      <Education
+        v-model:qualification="item.qualification"
+        v-model:course_name="item.course_name"
+        v-model:institute_name="item.institute_name"
+        v-model:location="item.location"
+        v-model:start_date="item.start_date"
+        v-model:end_date="item.end_date"
+        @add-data="adder(educationDetails)"
+        @remove-data="remover(educationDetails)"
+      />
+    </div>
 
-  <div class="form-cont work" v-for="item in workDetails">
-    <Work 
-      v-model:organisation="item.organisation"
-      v-model:job_role="item.job_role"
-      v-model:key_roles="item.key_roles"
-      v-model:start_date="item.start_date"
-      v-model:end_date="item.end_date"
-      @add-data="adder(workDetails)"
-      @remove-data="remover(workDetails)"
-    />
-  </div>
+    <div class="form-cont work" v-for="item in workDetails">
+      <Work
+        v-model:organisation="item.organisation"
+        v-model:job_role="item.job_role"
+        v-model:key_roles="item.key_roles"
+        v-model:start_date="item.start_date"
+        v-model:end_date="item.end_date"
+        @add-data="adder(workDetails)"
+        @remove-data="remover(workDetails)"
+      />
+    </div>
 
+    <div class="form-cont skills" v-for="item in skillDetails">
+      <Skills
+        v-model:skill="item.skill"
+        v-model:rating="item.rating"
+        @add-data="adder(skillDetails)"
+        @remove-data="remover(skillDetails)"
+      />
+    </div>
 
-  <div class="form-cont skills" v-for="item in skillDetails">
-    <Skills 
-    v-model:skill="item.skill"
-    v-model:rating="item.rating" 
-    @add-data="adder(skillDetails)" 
-    @remove-data="remover(skillDetails)"/>
-  </div>
-  
-  <div class="form-cont projects" v-for="item in projects">
-    <Projects 
-      v-model:project_title=item.project_title
-      v-model:skills=item.skills
-      v-model:description=item.description 
-      @add-data="adder(projects)" 
-      @remove-data="remover(projects)" />
-  </div>
+    <div class="form-cont projects" v-for="item in projects">
+      <Projects
+        v-model:project_title="item.project_title"
+        v-model:skills="item.skills"
+        v-model:description="item.description"
+        @add-data="adder(projects)"
+        @remove-data="remover(projects)"
+      />
+    </div>
 
-  <div class="form-cont social_media" v-for="item in socialMedia">
-    <SocialMedia 
-      v-model:network="item.network" 
-      v-model:user_name="item.user_name" 
-      v-model:url="item.url"
-      @add-data="adder(socialMedia)" 
-      @remove-data="remover(socialMedia)" />
-  </div>
+    <div class="form-cont social_media" v-for="item in socialMedia">
+      <SocialMedia
+        v-model:network="item.network"
+        v-model:user_name="item.user_name"
+        v-model:url="item.url"
+        @add-data="adder(socialMedia)"
+        @remove-data="remover(socialMedia)"
+      />
+    </div>
 
-  <v-btn
-        class="mr-4 btn"
-        @click="addBasic"
-      >
-        submit
-      </v-btn>
-</v-form>
-  
+    <v-btn class="mr-4 btn" @click.prevent="addBasic"> submit </v-btn>
+    <v-btn @click="cancelDialog = true">Cancel</v-btn>
+  </v-form>
 </template>
-
 
 <script>
 import axios from 'axios'
@@ -104,6 +142,7 @@ import Work from '@/components/Work.vue'
 import Skills from '@/components/Skills.vue'
 import Projects from '@/components/Projects.vue'
 import SocialMedia from '@/components/SocialMedia.vue'
+import Dialog from '@/components/Dialog.vue'
 
   export default {
 
@@ -114,7 +153,12 @@ import SocialMedia from '@/components/SocialMedia.vue'
         error:'',
         alert: false,
         error_alert: false,
+        dialog:false,
+        cancelDialog:false,
+        preview: true,
+        cancel:true,
         count:1,
+        currenLastId: 132,
         countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy'],
 
         basic:{
@@ -129,11 +173,11 @@ import SocialMedia from '@/components/SocialMedia.vue'
         skillDetails:[{skill:'',rating:''}],
         socialMedia:[{network:'', user_name:'', url:''}],
         projects:[{project_title:'', skills:'', description:''}],
-        educationDetails:[{qualification:'', course_name:'', 
+        educationDetails:[{qualification:'', course_name:'',
                           institute_name:'', location:'', start_date:'', end_date:''}],
-        workDetails:[{organisation:'', job_role:'', 
+        workDetails:[{organisation:'', job_role:'',
                           key_roles:'',  start_date:'', end_date:''}],
-      
+
         }
     },
     components:{
@@ -142,8 +186,9 @@ import SocialMedia from '@/components/SocialMedia.vue'
         Education,
         Work,
         Skills,
-        Projects, 
-        SocialMedia
+        Projects,
+        SocialMedia,
+        Dialog
       },
 
       computed:{
@@ -180,22 +225,23 @@ import SocialMedia from '@/components/SocialMedia.vue'
           console.log(res.data)
           if(res.data.hasOwnProperty('error_message')){
             console.log("key exists")
-            this.alert = false
             this.error_alert = true
+            this.dialog = false
             this.error = res.data.error_message
           }
           else{
-            this.alert=true
+            this.currenLastId++
+            this.dialog=true
             this.error_alert = false
+
           }
-          
+          window.scrollTo(0,0)
+
         })
         .catch((err) =>{
           console.log(err)
-          
-          
         })
-        
+
       },
 
       adder(listDict){
@@ -217,25 +263,24 @@ import SocialMedia from '@/components/SocialMedia.vue'
       }
     }
   }
-
 </script>
 
-  <style scoped>
-  .expansion{
-    margin-top: 80px;
-  }
-    .btn{
-      background-color: teal;
-    }
+<style scoped>
 
-    .main-form{
-      margin: 1em;
-      box-shadow: 5px 5px 20px rgba(240, 230, 245, 1);
-      padding: 1em;
-    }
 
-    .form-cont{
-      margin-bottom: 0.8em;
-    }
-  
-  </style>
+
+.expansion {
+  margin-top: 80px;
+}
+.btn {
+  background-color: rgb(2, 71, 71);
+  color: white;
+  width: 100px;
+}
+
+.main-form {
+  margin: 1em;
+  box-shadow: 5px 5px 20px rgba(240, 230, 245, 1);
+  padding: 1em;
+}
+</style>

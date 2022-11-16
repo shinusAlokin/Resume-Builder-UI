@@ -1,6 +1,6 @@
 <template>
     <div class="add-resume-listingpage">
-        <i class="fas fa-plus"></i>
+        <i class="fa fa-plus" aria-hidden="true"></i>
         <router-link to="/add">{{context}}</router-link>
         <router-view /> 
     </div>
@@ -27,7 +27,8 @@
     }
     .add-resume-listingpage  a{
         text-decoration: none; 
-        color: teal;
+        color: #00848E;
         cursor: pointer;
+        font-size: 1rem;
     }
 </style>

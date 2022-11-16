@@ -1,74 +1,96 @@
 <template>
-    <v-expansion-panels>
-        <v-expansion-panel
-          title="Social Media"
+  <v-expansion-panels>
+    <v-expansion-panel title="Social Media">
+      <v-expansion-panel-text>
+        <v-container fluid>
+          <v-row>
+            <v-col cols="1" sm="2">Network*</v-col>
+            <v-col cols="12" sm="8">
+              <v-text-field
+                :value="network"
+                @input="$emit('update:network', $event.target.value)"
+                placeholder="Network"
+                variant="underlined"
+                color="teal"
+                clearable
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <hr />
+
+          <v-row>
+            <v-col cols="1" sm="2">URL*</v-col>
+            <v-col cols="12" sm="8">
+              <v-text-field
+                :value="url"
+                @input="$emit('update:url', $event.target.value)"
+                placeholder="URL"
+                required
+                variant="underlined"
+                color="teal"
+                clearable
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <hr />
+          <v-row>
+            <v-col cols="1" sm="2">User Name*</v-col>
+            <v-col cols="12" sm="8">
+              <v-text-field
+                :value="user_name"
+                @input="$emit('update:user_name', $event.target.value)"
+                placeholder="User Name"
+                variant="underlined"
+                color="teal"
+                clearable
+                required
+              ></v-text-field>
+            </v-col>
+          </v-row>
+          <hr />
+        </v-container>
+
+        <v-btn
+          color="teal"
+          @click="[addMore, $emit('add-data', data)]"
+          class="adder"
+          >Add More</v-btn
         >
-        <v-expansion-panel-text>
-      <v-text-field
-      :value="network"
-        @input="$emit('update:network', $event.target.value)"
-        label="Network"
-        variant="underlined"
-        color="teal"
-        clearable
-        required
-      ></v-text-field>
-
-      <v-text-field
-      :value="url"
-        @input="$emit('update:url', $event.target.value)"
-        label="URL"
-        required
-        variant="underlined"
-        color="teal"
-        clearable
-      ></v-text-field>
-
-      <v-text-field
-      :value="user_name"
-        @input="$emit('update:user_name', $event.target.value)"
-        label="User Name"
-        variant="underlined"
-        color="teal"
-        clearable
-        required
-      ></v-text-field>
-
-      <v-btn @click="[addMore, $emit('add-data', data)]">Add</v-btn>
-      <v-btn @click="[remove, $emit('remove-data', data)]">Remove</v-btn>
-        </v-expansion-panel-text>
-        
-      </v-expansion-panel>
-      </v-expansion-panels>
-  </template>    
-
+        <v-btn @click="[remove, $emit('remove-data', data)]" class="remover"
+          >Remove</v-btn
+        >
+      </v-expansion-panel-text>
+    </v-expansion-panel>
+  </v-expansion-panels>
+</template>
 
 <script>
-    export default {
-      name: "SocialMedia",
-        props:{
-            network: String,
-            user_name: String,
-            url: String
-        },
-  
-        data(){
-            return{
-              count: 1
-            }
-        },
-        methods:{
-        remove(){
-          if (this.count > 1){
-            this.count--
-          }
-          
-        },
-        addMore(){
-          this.count++
+export default {
+  name: "SocialMedia",
+    props:{
+        network: String,
+        user_name: String,
+        url: String
+    },
 
+    data(){
+        return{
+          count: 1
         }
+    },
+    methods:{
+    remove(){
+      if (this.count > 1){
+        this.count--
       }
 
+    },
+    addMore(){
+      this.count++
+
     }
+  }
+
+}
 </script>

@@ -1,10 +1,17 @@
 <template>
     <div class="container">
+     
       <div class="left-container"></div>
       <div class="right-container">
+        <div  class="listing-alert">
+        <v-alert v-model="deleteAlert" type="success" closable
+        variant="outlined"
+        Dense
+         >Deleted successfully</v-alert
+    >
+  </div>
         <Header title="Resumes" />
         <div class="search-addresume">
-          <!-- <SearchBar  placeholder="searches by email or name" /> -->
           <div></div>
           <AddResumeVuetify  context="Add Resume"/>
         </div>
@@ -18,7 +25,6 @@
   import Header from "@/components/HeaderVuetify.vue"
   import Listing from "@/components/ListingVuetify.vue"
   import AddResumeVuetify from "@/components/AddResumeVuetify.vue"
-  import DeleteDialog from "@/components/DeleteDialog.vue"
   
       export default{
         name: "ListingPageView",
@@ -26,11 +32,11 @@
     Header,
     Listing,
     AddResumeVuetify,
-    DeleteDialog
 },
         data(){
             return{
-                search: ""
+                search: "",
+                deleteAlert: false
             }
         }
       }
@@ -38,6 +44,10 @@
   
   <style>
   
+  .listing-alert{
+    width: 100%;
+  }
+
   .container{
     width: 100%;
     display: flex;
@@ -46,11 +56,8 @@
     justify-content: center;
   }
   
-  .left-container{
-    width: 10%;
-  }
   .right-container{
-    width: 90%;
+    width: 95%;
     padding: 1em;
     margin-top: 10px;
     display: flex;
@@ -58,6 +65,7 @@
     justify-content: center;
     flex-direction: column;
   }
+
   
   .search-addresume{
     width: 100%;

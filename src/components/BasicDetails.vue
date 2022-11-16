@@ -1,133 +1,135 @@
 <template>
-    <v-expansion-panels focusable >
-        <v-expansion-panel
-          title="Basic Details"
-        >
+  <v-expansion-panels focusable v-model="panel">
+    <v-expansion-panel title="Basic Details" expand>
+      <v-form>
         <v-expansion-panel-text>
-      <v-text-field
-        :value="name"
-        @input="$emit('update:name', $event.target.value)"
-        label="Name"
-        variant="underlined"
-        color="teal"
-        required
-        clearable
-      ></v-text-field>
+          <v-container fluid>
+            <v-row>
+              <v-col cols="1" sm="2">Name*</v-col>
+              <v-col cols="12" sm="8">
+                <v-text-field
+                  :value="name"
+                  :rules="nameRules"
+                  @input="$emit('update:name', $event.target.value)"
+                  placeholder="Name"
+                  variant="underlined"
+                  color="teal"
+                  required
+                  clearable
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <hr />
 
-      <v-text-field
-     
-      @input="$emit('update:email', $event.target.value)"
-          :value="email"
-        label="E-mail"
-        variant="underlined"
-        color="teal"
-        required
-        clearable
-      ></v-text-field>
+            <v-row>
+              <v-col cols="1" sm="2">Email*</v-col>
+              <v-col cols="12" sm="8">
+                <v-text-field
+                  @input="$emit('update:email', $event.target.value)"
+                  :value="email"
+                  :rules="emailRules"
+                  placeholder="E-mail"
+                  variant="underlined"
+                  color="teal"
+                  required
+                  clearable
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <hr />
 
-      <v-text-field
-      :value="phone"
-        @input="$emit('update:phone', $event.target.value)"
-        label="Phone Number"
-        variant="underlined"
-        color="teal"
-        required
-        clearable
-      ></v-text-field>
+            <v-row>
+              <v-col cols="1" sm="2">Phone Number*</v-col>
+              <v-col cols="12" sm="8">
+                <v-text-field
+                  :value="phone"
+                  :rules="phoneRules"
+                  @input="$emit('update:phone', $event.target.value)"
+                  placeholder="Phone Number"
+                  variant="underlined"
+                  color="teal"
+                  required
+                  clearable
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <hr />
 
-      <v-text-field
-        :value="image"
-        @input="$emit('update:image', $event.target.value)"
-        label="Image Url"
-        required
-        clearable
-        variant="underlined"
-        color="teal"
-      ></v-text-field>
+            <v-row>
+              <v-col cols="1" sm="2">Image URL*</v-col>
+              <v-col cols="12" sm="8">
+                <v-text-field
+                  :value="image"
+                  @input="$emit('update:image', $event.target.value)"
+                  placeholder="Image Url"
+                  required
+                  clearable
+                  variant="underlined"
+                  color="teal"
+                ></v-text-field>
+              </v-col>
+            </v-row>
+            <hr />
 
-      <v-textarea
-      :value="summary"
-          @input="$emit('update:summary', $event.target.value)"
-        label="Summary"
-        variant="underlined"
-        color="teal"
-        required
-        clearable
-      ></v-textarea>
+            <v-row>
+              <v-col cols="1" sm="2">Summary*</v-col>
+              <v-col cols="12" sm="8">
+                <v-textarea
+                  :value="summary"
+                  @input="$emit('update:summary', $event.target.value)"
+                  placeholder="Summary"
+                  variant="underlined"
+                  color="teal"
+                  required
+                  clearable
+                ></v-textarea>
+              </v-col>
+            </v-row>
+            <hr />
+          </v-container>
         </v-expansion-panel-text>
-      
-      </v-expansion-panel>
-      </v-expansion-panels>
-  </template>
-  
-  
-  <script>
-  import axios from 'axios'
-  
-  import { useVuelidate } from '@vuelidate/core'
-    
-  import { required, maxLength, email } from '@vuelidate/validators'
-  
-  
-    export default {
-        
-      setup(){
-      return {
-        v$: useVuelidate()
+      </v-form>
+    </v-expansion-panel>
+  </v-expansion-panels>
+</template>
+
+<script>
+import axios from 'axios'
+import { useVuelidate } from '@vuelidate/core'
+import { required } from '@vuelidate/validators'
+
+
+
+  export default {
+
+    name: "BasicDetails",
+      props:{
+          name: String,
+          email: String,
+          phone: String,
+          image: String,
+          summary: String
+      },
+
+    data(){
+      return{
+        panel:0,
+        nameRules: [
+                    v => !!v  || 'Name is required',
+                    v => (v && v.length >= 3) || 'Name must be more than 3 characters',
+                    ],
+        emailRules: [
+                    v => !!v || 'E-mail is required',
+                    v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
+                    ],
+        // phonerules: [
+        //               v => !!v || 'Phone is required',
+        //              v =>  /^(?(\d{3}))?[- ]?(\d{3})[- ]?(\d{4})$/.test(v), 'Enter valid Phone Number'
+        // ]
+
       }
     },
-  
-      validations: {
-        name: { required, maxLength: maxLength(10) },
-        email: { required, email },
-        select: { required },
-        checkbox: {
-          checked (val) {
-            return val
-          },
-        },
-      },
 
-      name: "BasicDetails",
-        props:{
-            name: String,
-            email: String,
-            phone: String,
-            image: String,
-            summary: String
-        },
 
-  
-      computed: {
-        checkboxErrors () {
-          const errors = []
-          if (!this.v$.checkbox.$dirty) return errors
-          !this.v$.checkbox.checked && errors.push('You must agree to continue!')
-          return errors
-        },
-        selectErrors () {
-          const errors = []
-          if (!this.v$.select.$dirty) return errors
-          !this.v$.select.required && errors.push('Item is required')
-          return errors
-        },
-        nameErrors () {
-          const errors = []
-          if (!this.v$.name.$dirty) return errors
-          !this.v$.name.maxLength && errors.push('Name must be at most 10 characters long')
-          !this.v$.name.required && errors.push('Name is required.')
-          return errors
-        },
-        emailErrors () {
-          const errors = []
-          if (!this.v$.email.$dirty) return errors
-          !this.v$.email.email && errors.push('Must be valid e-mail')
-          !this.v$.email.required && errors.push('E-mail is required')
-          return errors
-        },
-      },
-
-      
-  }
-
+    }
 </script>
