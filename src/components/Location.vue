@@ -9,6 +9,7 @@
               <v-text-field
                 @input="$emit('update:address_line', $event.target.value)"
                 :value="address_line"
+                :rules = "[v => !!v || 'Address Line is required']"
                 placeholder="Address Line"
                 variant="underlined"
                 color="teal"
@@ -17,13 +18,14 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
             <v-col cols="1" sm="2">Street Name*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
                 :value="street_name"
+                :rules = "[v => !!v || 'Street Name is required']"
                 @input="$emit('update:street_name', $event.target.value)"
                 placeholder="Street Name"
                 variant="underlined"
@@ -32,13 +34,14 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
             <v-col cols="1" sm="2">City*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
                 :value="city"
+                :rules = "[v => !!v || 'City  is required']"
                 @input="$emit('update:city', $event.target.value)"
                 placeholder="City"
                 variant="underlined"
@@ -46,12 +49,13 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
             <v-col cols="1" sm="2">Country*</v-col>
             <v-col cols="12" sm="8">
               <v-combobox
+              :rules = "[v => !!v || 'Country is required']"
                 :value="country"
                 :items="countries"
                 placeholder="Country"
@@ -61,7 +65,21 @@
               ></v-combobox>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
+
+          <!-- <v-row>
+            <v-col cols="1" sm="2">Country*</v-col>
+            <v-col cols="12" sm="8">
+              <v-select
+                :items="countries"
+                placeholder="Country"
+                @input="$emit('update:country', $event.target.value)"
+                variant="underlined"
+                color="teal"
+              ></v-select>
+            </v-col>
+          </v-row>
+          <v-divider></v-divider> -->
 
           <v-row>
             <v-col cols="1" sm="2">Zip-Code* </v-col>
@@ -69,6 +87,7 @@
               <v-text-field
                 @input="$emit('update:zip_code', $event.target.value)"
                 :value="zip_code"
+                :rules = "[v => !!v || 'Zip-Code is required']"
                 placeholder="Zip-Code"
                 variant="underlined"
                 color="teal"
@@ -76,21 +95,23 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
-
+          <v-divider></v-divider>
+          <div class="add-rm-btn">
           <v-btn
-            color="teal"
             @click="[addMore, $emit('add-data', data)]"
-            class="adder"
-            >Add More</v-btn
+            color="#00848E"
+            variant="plain"
+            ><i class="fas fa-plus" aria-hidden="true"></i>Add Address</v-btn
           >
-          <v-btn @click="[$emit('remove-data', data), remove]" class="remover"
-            >Remove</v-btn
+          <v-btn variant="plain" color="#00848E" @click="[$emit('remove-data', data), remove]" 
+            ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
           >
+        </div>
         </v-container>
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
+  
 </template>
 
 <script>
@@ -106,9 +127,8 @@ export default{
     },
     data(){
       return{
-        countr: this.country,
         count:1,
-        countries:["India", "Japan", "USA", "France", "UK", "Qatar", "Italy"]
+        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy'],
 
   }
 },

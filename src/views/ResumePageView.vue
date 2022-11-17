@@ -8,7 +8,7 @@
 
   <div class="nav-links">
     <router-link to="/list" class="nav-link">
-      <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home
+      <i class="fa-regular fa-less-than"></i> Back to Home
       Page</router-link
     >
   </div>
@@ -39,16 +39,6 @@
     />
   </template>
 
-  <!-- <template>
-    <Dialog 
-        :dialog="dialog" 
-        alertType = "success"
-        action = "Preview"
-        buttonColor = "Teal"
-        message="Resume created successfully"
-        @something = ''
-    />
-  </template> -->
 
   <v-form class="main-form">
     <div class="form-cont basic-detail">
@@ -61,7 +51,7 @@
       />
     </div>
 
-    <div class="form-cont location" v-for="item in locationDetails">
+    <div class="form-cont location" v-for="(item, index) in locationDetails">
       <Location
         v-model:address_line="item.address_line"
         v-model:street_name="item.street_name"
@@ -69,12 +59,13 @@
         v-model:country = "item.country"
         v-model:zip_code="item.zip_code"
         @add-data="adder(locationDetails)"
-        @remove-data="remover(locationDetails)"
+        @remove-data="remover(locationDetails, index)"
       />
     </div>
+   
     
 
-    <div class="form-cont education" v-for="item in educationDetails">
+    <div class="form-cont education" v-for="(item, index) in educationDetails">
       <Education
         v-model:qualification="item.qualification"
         v-model:course_name="item.course_name"
@@ -83,11 +74,11 @@
         v-model:start_date="item.start_date"
         v-model:end_date="item.end_date"
         @add-data="adder(educationDetails)"
-        @remove-data="remover(educationDetails)"
+        @remove-data="remover(educationDetails, index)"
       />
     </div>
 
-    <div class="form-cont work" v-for="item in workDetails">
+    <div class="form-cont work" v-for="(item,index) in workDetails">
       <Work
         v-model:organisation="item.organisation"
         v-model:job_role="item.job_role"
@@ -95,26 +86,26 @@
         v-model:start_date="item.start_date"
         v-model:end_date="item.end_date"
         @add-data="adder(workDetails)"
-        @remove-data="remover(workDetails)"
+        @remove-data="remover(workDetails, index)"
       />
     </div>
 
-    <div class="form-cont skills" v-for="item in skillDetails">
+    <div class="form-cont skills" v-for="(item,index) in skillDetails">
       <Skills
         v-model:skill="item.skill"
         v-model:rating="item.rating"
         @add-data="adder(skillDetails)"
-        @remove-data="remover(skillDetails)"
+        @remove-data="remover(skillDetails,index)"
       />
     </div>
 
-    <div class="form-cont projects" v-for="item in projects">
+    <div class="form-cont projects" v-for="(item, index) in projects">
       <Projects
         v-model:project_title="item.project_title"
         v-model:skills="item.skills"
         v-model:description="item.description"
         @add-data="adder(projects)"
-        @remove-data="remover(projects)"
+        @remove-data="remover(projects, index)"
       />
     </div>
 
@@ -129,7 +120,7 @@
     </div>
 
     <v-btn class="mr-4 btn" @click.prevent="addBasic"> submit </v-btn>
-    <v-btn @click="cancelDialog = true">Cancel</v-btn>
+    <v-btn class="mr-4 btn" @click="cancelDialog = true">Cancel</v-btn>
   </v-form>
 </template>
 
@@ -158,8 +149,8 @@ import Dialog from '@/components/Dialog.vue'
         preview: true,
         cancel:true,
         count:1,
-        currenLastId: 132,
-        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy'],
+        currenLastId: 191,
+        
 
         basic:{
         name: '',
@@ -218,7 +209,6 @@ import Dialog from '@/components/Dialog.vue'
           projects:[...this.projects],
         }
 
-        console.log(newResume)
 
         await axios.post(`http://127.0.0.1:8000/api/new/resume`, newResume)
         .then((res) =>{
@@ -256,10 +246,8 @@ import Dialog from '@/components/Dialog.vue'
         listDict.push(newDict)
       },
 
-      remover(list){
-        if (list.length > 1){
-          list.pop()
-        }
+      remover(list, index){
+       list.splice(index, 1) 
       }
     }
   }

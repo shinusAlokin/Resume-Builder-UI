@@ -8,7 +8,7 @@
 
   <div class="nav-links">
     <router-link to="/list" class="nav-link">
-      <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home
+      <i class="fa-regular fa-less-than" aria-hidden="true"></i> Back to Home
       Page</router-link
     >
   </div>
@@ -88,12 +88,12 @@
       />
     </div>
 
-    <div class="form-cont skills" v-for="item in skillDetails">
+    <div class="form-cont skills" v-for="(item, index) in skillDetails">
       <Skills
         v-model:skill="item.skill"
         v-model:rating="item.rating"
         @add-data="adder(skillDetails)"
-        @remove-data="remover(skillDetails, removeSkill, item.id)"
+        @remove-data="remover(skillDetails, removeSkill, item.id, index)"
         :skill_id="item.id"
       />
     </div>
@@ -114,12 +114,12 @@
         v-model:user_name="item.user_name"
         v-model:url="item.url"
         @add-data="adder(socialMedia)"
-        @remove-data="remover(socialMedia,removeProject, item.id)"
+        @remove-data="remover(socialMedia,removeSocialMedia, item.id)"
       />
     </div>
 
     <v-btn class="mr-4 btn" @click="updateResume"> submit </v-btn>
-    <v-btn @click="cancelDialog = true">Cancel</v-btn>
+    <v-btn class="mr-4 btn" @click="cancelDialog = true">Cancel</v-btn>
   </v-form>
   <router-view />
 </template>
@@ -134,11 +134,8 @@ import Skills from '@/components/Skills.vue'
 import Projects from '@/components/Projects.vue'
 import SocialMedia from '@/components/SocialMedia.vue'
 import Dialog from '@/components/Dialog.vue'
-
   export default {
-
     name:"EditResumePageView",
-
     data(){
       return{
         error_alert: false,
@@ -147,9 +144,7 @@ import Dialog from '@/components/Dialog.vue'
         toEdit:[],
         preview: true,
         cancelDialog:false,
-
         id: this.$route.params.id,
-
       basic:'',
       locationDetails:'',
       skillDetails:'',
@@ -157,8 +152,6 @@ import Dialog from '@/components/Dialog.vue'
       projects:'',
       educationDetails:'',
       workDetails:''
-
-
         }
     },
     components:{
@@ -171,10 +164,7 @@ import Dialog from '@/components/Dialog.vue'
         SocialMedia,
         Dialog
       },
-
-
     methods: {
-
       async toUpdate(){
           await axios.get(this.url).then((res) => {
               this.toEdit = res.data
@@ -185,21 +175,17 @@ import Dialog from '@/components/Dialog.vue'
               this.socialMedia = this.toEdit.social_media
               this.workDetails = this.toEdit.work_details
               this.educationDetails = this.toEdit.education_details
-
           }).catch((err) =>{
               console.log(err)
           })
-
       },
-
      async updateResume(){
           const updatedResume = {
               name:this.basic.name,
-              email_address: this.basic.email,
-              phone_number: this.basic.phone,
-              image_url: this.basic.image,
+              email_address: this.basic.email_address,
+              phone_number: this.basic.phone_number,
+              image_url: this.basic.image_url,
               summary: this.basic.summary,
-
               location_details:[...this.locationDetails],
               social_media:[...this.socialMedia],
               work_details:[...this.workDetails],
@@ -221,13 +207,9 @@ import Dialog from '@/components/Dialog.vue'
         else{
           this.error_alert = false
           this.dialog = true
-
         }
           })
-
-
       },
-
       adder(listDict){
         let keys = []
         for(let key in listDict[0]){
@@ -242,18 +224,16 @@ import Dialog from '@/components/Dialog.vue'
         newDict.basic_details_id = this.id
         listDict.push(newDict)
       },
-
-      async remover(list, item_url, item_id){
-        if (list.length > 1){
+      async remover(list, item_url, item_id, index){
+        if (list.length > 1 && item_id){
           await axios.delete(item_url + `${item_id}`)
-          window.location.reload()
+          list.splice(index, 1)
         }
-        if (!item_id){
-          list.pop()
+        else{
+          list.splice(index, 1)
         }
       }
     },
-
     computed:{
       server(){
           return `http://127.0.0.1:8000`
@@ -271,7 +251,7 @@ import Dialog from '@/components/Dialog.vue'
           return `${this.server}/delete_social_media/${this.id}/social_media/`
       },
       removeEducation(){
-          return `${this.server}/education/${this.id}/edu/`
+          return `${this.server}/delete_education/${this.id}/edu/`
       },
       removeWork(){
           return `${this.server}/delete_work/${this.id}/work/`
@@ -280,10 +260,8 @@ import Dialog from '@/components/Dialog.vue'
           return `${this.server}/delete_location/${this.id}/location/`
       },
     },
-
     created(){
       this.toUpdate()
-
     }
   }
 </script>
@@ -293,16 +271,14 @@ import Dialog from '@/components/Dialog.vue'
   margin-top: 80px;
 }
 .btn {
-  background-color: teal;
+  background-color: rgb(4, 72, 72);
   color: white;
 }
-
 .main-form {
   margin: 1em;
   box-shadow: 5px 5px 20px rgba(240, 230, 245, 1);
   padding: 1em;
 }
-
 .form-cont {
   margin-bottom: 0.8em;
 }

@@ -4,7 +4,7 @@
       <v-expansion-panel-text>
         <v-container fluid>
           <v-row>
-            <v-col cols="1" sm="2">Project Title*</v-col>
+            <v-col cols="1" sm="2">Project Title</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
                 :value="project_title"
@@ -17,10 +17,10 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
-            <v-col cols="1" sm="2">Skills*</v-col>
+            <v-col cols="1" sm="2">Skills</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
                 :value="skills"
@@ -31,10 +31,10 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
-            <v-col cols="1" sm="2">Description*</v-col>
+            <v-col cols="1" sm="2">Description</v-col>
             <v-col cols="12" sm="8">
               <v-textarea
                 :value="description"
@@ -46,18 +46,19 @@
               ></v-textarea>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
         </v-container>
-
+        <div class="add-rm-btn">
         <v-btn
-          color="teal"
-          @click="[addMore, $emit('add-data', data)]"
-          class="adder"
-          >Add More</v-btn
-        >
-        <v-btn @click="[$emit('remove-data', data), remove]" class="remover"
-          >Remove</v-btn
-        >
+            @click="[addMore, $emit('add-data', data)]"
+            color="#00848E"
+            variant="plain"
+            ><i class="fas fa-plus" aria-hidden="true"></i>Add Project</v-btn
+          >
+          <v-btn variant="plain" color="#00848E" @click="[$emit('remove-data', data), remove]" 
+            ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
+          >
+        </div>
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>

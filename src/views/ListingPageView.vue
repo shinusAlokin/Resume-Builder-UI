@@ -15,7 +15,7 @@
           <div></div>
           <AddResumeVuetify  context="Add Resume"/>
         </div>
-          <Listing />
+          <Listing @delete-success="triggerDelete"/>
       </div>
 
     </div>
@@ -38,7 +38,14 @@
                 search: "",
                 deleteAlert: false
             }
-        }
+        },
+        methods:{
+        triggerDelete(){
+          setTimeout(() => { this.deleteAlert = true }, 200)
+         setTimeout(() => { this.deleteAlert = false }, 5000)
+          }
+        },
+      
       }
   </script>
   

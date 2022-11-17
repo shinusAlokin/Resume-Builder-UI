@@ -17,7 +17,7 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
             <v-col cols="1" sm="2">Course Name*</v-col>
@@ -32,7 +32,7 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
             <v-col cols="1" sm="2">Institute Name*</v-col>
@@ -47,7 +47,7 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
             <v-col cols="1" sm="2">Location*</v-col>
@@ -62,7 +62,7 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
             <v-col cols="1" sm="2">Start Date*</v-col>
@@ -74,12 +74,11 @@
                 placeholder="Start Date"
                 variant="underlined"
                 color="teal"
-                clearable
               >
               </v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
             <v-col cols="1" sm="2">End Date*</v-col>
@@ -92,21 +91,21 @@
                 required
                 variant="underlined"
                 color="teal"
-                clearable
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
-
+          <v-divider></v-divider>
+          <div class="add-rm-btn">
           <v-btn
-            color="teal"
             @click="[addMore, $emit('add-data', data)]"
-            class="adder"
-            >Add More</v-btn
+            color="#00848E"
+            variant="plain"
+            ><i class="fas fa-plus" aria-hidden="true"></i>Add Education</v-btn
           >
-          <v-btn @click="[$emit('remove-data', data), remove]" class="remover"
-            >Remove</v-btn
+          <v-btn variant="plain" color="#00848E" @click="[$emit('remove-data', data), remove]" 
+            ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
           >
+        </div>
         </v-container>
       </v-expansion-panel-text>
     </v-expansion-panel>

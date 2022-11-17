@@ -19,7 +19,7 @@
         buttonColor="red"
         message="Are you sure you want to delete resume?"
         action="Delete"
-        @something="deleteBasic(deleteId)"
+        @something="[deleteBasic(deleteId), $emit('delete-success')]"
       />
     </template>
   
@@ -38,7 +38,7 @@
         v-if="searchContent"
       >
         <tr v-for="i in item" :key="i.basic_details_id">
-          <td>{{ i.name }}</td>
+          <td>{{ capitalizeName(i.name) }}</td>
           <td>{{ i.email_address }}</td>
           <td>{{ formatPhoneNumber(i.phone_number) }}</td>
           <td>{{ i.date_applied }}</td>
@@ -74,7 +74,7 @@
   
       <tbody v-for="item in searchedContent" v-else>
         <tr v-for="i in item" :key="i.basic_details_id" >
-          <td>{{ capitalize(i.name) }}</td>
+          <td>{{ capitalizeName(i.name) }}</td>
           <td>{{ i.email_address }}</td>
           <td>{{ formatPhoneNumber(i.phone_number) }}</td>
           <td>{{ i.date_applied }}</td>
@@ -135,6 +135,7 @@
               search:'',
               dialog: false,
               deleteId: 0,
+              deleteAlert: true,
           }
       },
       methods:{
@@ -147,10 +148,10 @@
           },
   
           formatPhoneNumber(num){
-             let pattern = /^(1|)?(\d{3})(\d{3})(\d{4})$/
+             let pattern = /^(1|91)?(\d{3})(\d{3})(\d{4})$/
              let match = num.match(pattern)
               if (match){
-                 let intCode = (match[1] ? '+1': '')
+                 let intCode = (match[1] ? '+1' :'')
                  return [intCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
               }
               return num
@@ -165,6 +166,7 @@
               }).then((response) =>{
                   this.content = response.data
                   console.log(response.data)
+
               }).catch((error) => {
                   console.log(error)
               })
@@ -186,6 +188,7 @@
             this.dialog = false
             this.deleteAlert = true
             this.getContent()
+            window.scrollTo(0, 0)
         
       },
       triggerDelete(id){
@@ -225,7 +228,7 @@
     cursor: pointer;
   }
  tbody tr:hover{
-    background-color:  #DFE3E8;
+    background-color:  #F9FAFB;
     transition: 0.3s;
   }
   

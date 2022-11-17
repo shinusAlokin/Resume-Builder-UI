@@ -17,7 +17,7 @@ export default {
   data(){
     return{
       validRules: [
-      v => !!v || 'This field is required is required',
+      v => !!v || 'This field is required',
       ]
     }
   },
@@ -94,5 +94,15 @@ body{
 
   .nav-links a{
   font-size: 1rem;
+}
+
+.v-expansion-panel-text{
+background: rgb(224,245,245);
+background: linear-gradient(90deg, rgba(224,245,245,1) 16%, rgba(255,255,255,1) 16%);
+}
+
+.add-rm-btn{
+  position: relative;
+  left: 16%;
 }
 </style>

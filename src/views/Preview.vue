@@ -1,9 +1,10 @@
 <template>
     <div class="nav-links">
-      <a href="/" class="nav-link">
-        <i class="fa fa-arrow-left" aria-hidden="true"></i> Back to Home Page</a
-      >
-    </div>
+    <router-link to="/list" class="nav-link">
+      <i class="fa-regular fa-less-than"></i> Back to Home
+      Page</router-link
+    >
+  </div>
     <v-container fluid>
       <v-card class="mx-auto" justify>
         <v-card-title class="text">Basic Details</v-card-title>
@@ -179,8 +180,12 @@
   </script>
   
   <style scoped>
+  @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;900&family=Roboto+Slab:wght@400;800&family=Roboto:wght@100;300;400;500;700;900&display=swap');
   
   .text {
+    font-family: 'Poppins', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Slab', serif;
     text-align: center;
     font-size: 1.1rem;
     padding-right: 1em;
@@ -200,11 +205,17 @@
   
 
   .v-row {
+    font-family: 'Poppins', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Slab', serif;
     font-size: 0.9rem;
     position: relative;
     left: 5%;
   }
   .v-row h3 {
+    font-family: 'Poppins', sans-serif;
+font-family: 'Roboto', sans-serif;
+font-family: 'Roboto Slab', serif;
     font-size: 0.9rem;
     font-weight: 500;
   }

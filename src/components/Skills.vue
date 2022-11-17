@@ -4,10 +4,11 @@
       <v-expansion-panel-text v-for="(i, k) in count" :key="k">
         <v-container fluid>
           <v-row>
-            <v-col cols="1" sm="1" class="label-col">Skill*</v-col>
+            <v-col cols="1" sm="2" class="label-col">Skill*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
                 :value="skill"
+                :rules = "[v => !!v || 'Skill is required']"
                 @input="$emit('update:skill', $event.target.value)"
                 placeholder="Skill"
                 required
@@ -16,33 +17,34 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
 
           <v-row>
-            <v-col cols="1" sm="1" class="label-col">Rating*</v-col>
+            <v-col cols="1" sm="2" class="label-col">Rating</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
                 @input="$emit('update:rating', $event.target.value)"
                 placeholder="Rating out of 10"
                 :value="rating"
-                :items="range"
+                :rules="rules"
                 variant="underlined"
                 color="teal"
               ></v-text-field>
             </v-col>
           </v-row>
-          <hr />
+          <v-divider></v-divider>
         </v-container>
-
+        <div class="add-rm-btn">
         <v-btn
-          color="teal"
-          @click="[addMore, $emit('add-data', data)]"
-          class="adder"
-          >Add More</v-btn
-        >
-        <v-btn @click="[$emit('remove-data', data), remove]" class="remover"
-          >Remove</v-btn
-        >
+            @click="[addMore, $emit('add-data', data)]"
+            color="#00848E"
+            variant="plain"
+            ><i class="fas fa-plus" aria-hidden="true"></i>Add Skill</v-btn
+          >
+          <v-btn variant="plain" color="#00848E" @click="[$emit('remove-data', data), remove]" 
+            ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
+          >
+        </div>
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
@@ -53,11 +55,12 @@ export default{
     name: "Skills",
     props:{
       skill: String,
-      rating: String
+      rating: String,
     },
     data(){
         return{
-          count: 1
+          count: 1,
+          rules: [v => v => !!v  || 'This field is required',]
         }
     },
     methods:{

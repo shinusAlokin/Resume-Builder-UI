@@ -8,6 +8,7 @@
               <v-col cols="1" sm="2">Name*</v-col>
               <v-col cols="12" sm="8">
                 <v-text-field
+                lazyvalidation
                   :value="name"
                   :rules="nameRules"
                   @input="$emit('update:name', $event.target.value)"
@@ -19,7 +20,7 @@
                 ></v-text-field>
               </v-col>
             </v-row>
-            <hr />
+            <v-divider></v-divider>
 
             <v-row>
               <v-col cols="1" sm="2">Email*</v-col>
@@ -32,50 +33,48 @@
                   variant="underlined"
                   color="teal"
                   required
-                  clearable
                 ></v-text-field>
               </v-col>
             </v-row>
-            <hr />
+            <v-divider></v-divider>
 
             <v-row>
               <v-col cols="1" sm="2">Phone Number*</v-col>
               <v-col cols="12" sm="8">
                 <v-text-field
                   :value="phone"
-                  :rules="phoneRules"
+                  :rules="phonerules"
                   @input="$emit('update:phone', $event.target.value)"
                   placeholder="Phone Number"
                   variant="underlined"
                   color="teal"
                   required
-                  clearable
                 ></v-text-field>
               </v-col>
             </v-row>
-            <hr />
+            <v-divider></v-divider>
 
             <v-row>
-              <v-col cols="1" sm="2">Image URL*</v-col>
+              <v-col cols="1" sm="2">Image URL</v-col>
               <v-col cols="12" sm="8">
                 <v-text-field
                   :value="image"
                   @input="$emit('update:image', $event.target.value)"
                   placeholder="Image Url"
                   required
-                  clearable
                   variant="underlined"
                   color="teal"
                 ></v-text-field>
               </v-col>
             </v-row>
-            <hr />
+            <v-divider></v-divider>
 
             <v-row>
               <v-col cols="1" sm="2">Summary*</v-col>
               <v-col cols="12" sm="8">
                 <v-textarea
                   :value="summary"
+                  :rules = "[v => !!v || 'Summary is required']"
                   @input="$emit('update:summary', $event.target.value)"
                   placeholder="Summary"
                   variant="underlined"
@@ -85,7 +84,7 @@
                 ></v-textarea>
               </v-col>
             </v-row>
-            <hr />
+            <v-divider></v-divider>
           </v-container>
         </v-expansion-panel-text>
       </v-form>
@@ -96,7 +95,6 @@
 <script>
 import axios from 'axios'
 import { useVuelidate } from '@vuelidate/core'
-import { required } from '@vuelidate/validators'
 
 
 
@@ -122,10 +120,10 @@ import { required } from '@vuelidate/validators'
                     v => !!v || 'E-mail is required',
                     v => /.+@.+\..+/.test(v) || 'E-mail must be valid',
                     ],
-        // phonerules: [
-        //               v => !!v || 'Phone is required',
-        //              v =>  /^(?(\d{3}))?[- ]?(\d{3})[- ]?(\d{4})$/.test(v), 'Enter valid Phone Number'
-        // ]
+        phonerules: [
+                      v => !!v || 'Phone is required',
+                      v =>  /^((1|91)?(\d{3}))?[- ]?(\d{3})[- ]?(\d{4})$/.test(v) ||'Enter valid Phone Number'
+        ]
 
       }
     },
