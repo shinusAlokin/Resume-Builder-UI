@@ -105,4 +105,10 @@ background: linear-gradient(90deg, rgba(224,245,245,1) 16%, rgba(255,255,255,1) 
   position: relative;
   left: 16%;
 }
+
+/* @media (max-width:900){
+  .v-expansion-panel-text{
+background: rgb(224,245,245);
+background: linear-gradient(90deg, rgba(224,245,245,1) 16%, rgba(255,255,255,1) 16%);
+} */
 </style>

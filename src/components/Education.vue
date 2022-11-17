@@ -7,12 +7,12 @@
             <v-col cols="1" sm="2">Qualification*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
+                :rules = "[v => !!v || 'Qualification  is required']"
                 :value="qualification"
                 @input="$emit('update:qualification', $event.target.value)"
                 placeholder="Qualification"
                 variant="underlined"
                 color="teal"
-                clearable
                 required
               ></v-text-field>
             </v-col>
@@ -23,12 +23,12 @@
             <v-col cols="1" sm="2">Course Name*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
+                :rules = "[v => !!v || 'Course Name is required']"
                 :value="course_name"
                 @input="$emit('update:course_name', $event.target.value)"
                 placeholder="Course Name"
                 variant="underlined"
                 color="teal"
-                clearable
               ></v-text-field>
             </v-col>
           </v-row>
@@ -39,11 +39,11 @@
             <v-col cols="12" sm="8">
               <v-text-field
                 :value="institute_name"
+                :rules = "[v => !!v || 'Institute Name is required']"
                 @input="$emit('update:institute_name', $event.target.value)"
                 placeholder="Institute Name"
                 variant="underlined"
                 color="teal"
-                clearable
               ></v-text-field>
             </v-col>
           </v-row>
@@ -54,11 +54,11 @@
             <v-col cols="12" sm="8">
               <v-text-field
                 :value="location"
+                :rules = "[v => !!v || 'Location is required']"
                 @input="$emit('update:location', $event.target.value)"
                 placeholder="Location"
                 variant="underlined"
                 color="teal"
-                clearable
               ></v-text-field>
             </v-col>
           </v-row>
@@ -68,6 +68,7 @@
             <v-col cols="1" sm="2">Start Date*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
+                :rules = "[v => !!v || 'Start Date is required']"
                 :value="start_date"
                 onfocus="(this.type='date')"
                 @input="$emit('update:start_date', $event.target.value)"
@@ -85,6 +86,7 @@
             <v-col cols="12" sm="8">
               <v-text-field
                 :value="end_date"
+                :rules = "[v => !!v || 'End Date is required']"
                 onfocus="(this.type='date')"
                 @input="$emit('update:end_date', $event.target.value)"
                 placeholder="End Date"

@@ -13,7 +13,6 @@
                 placeholder="Address Line"
                 variant="underlined"
                 color="teal"
-                clearable
                 required
               ></v-text-field>
             </v-col>
@@ -30,7 +29,6 @@
                 placeholder="Street Name"
                 variant="underlined"
                 color="teal"
-                clearable
               ></v-text-field>
             </v-col>
           </v-row>
