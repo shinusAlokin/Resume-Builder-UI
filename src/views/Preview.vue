@@ -11,21 +11,21 @@
         <v-spacer></v-spacer>
         <v-card-text justify="center" class="box">
           <v-row justify="center">
-            <v-col cols="1" sm="2"> <h3>Name:</h3> </v-col>
-            <v-col>{{preview.basic.name}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Email Address:</h3> </v-col>
-            <v-col>{{preview.basic.email_address}}</v-col>
+            <v-col sm="2"> <h3>Name:</h3> </v-col>
+            <v-col >{{preview.basic.name}}</v-col>
+            <v-col sm="2"> <h3>Email Address:</h3> </v-col>
+            <v-col >{{preview.basic.email_address}}</v-col>
           </v-row>
           <v-row justify="center">
-            <v-col cols="1" sm="2"> <h3>Phone Number:</h3> </v-col>
+            <v-col sm="2"> <h3>Phone Number:</h3> </v-col>
             <v-col>{{preview.basic.phone_number}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Image URL:</h3> </v-col>
+            <v-col sm="2"> <h3>Image URL:</h3> </v-col>
             <v-col>{{preview.basic.image_url}}</v-col>
           </v-row>
           <v-row justify="center">
-            <v-col cols="1" sm="2"> <h3>Summary:</h3> </v-col>
+            <v-col sm="2"> <h3>Summary:</h3> </v-col>
             <v-col>{{preview.basic.summary}}</v-col>
-            <v-col cols="1" sm="2"></v-col>
+            <v-col sm="2"></v-col>
             <v-col></v-col>
           </v-row>
         </v-card-text>
@@ -34,21 +34,21 @@
         <v-spacer></v-spacer>
         <v-card-text v-for="loc in preview.location_details">
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Address Line:</h3> </v-col>
+            <v-col sm="2"> <h3>Address Line:</h3> </v-col>
             <v-col>{{loc.address_line}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Street Name:</h3> </v-col>
+            <v-col sm="2"> <h3>Street Name:</h3> </v-col>
             <v-col>{{loc.street_name}}</v-col>
           </v-row>
           <v-row>
-            <v-col cols="1" sm="2"> <h3>City:</h3> </v-col>
+            <v-col sm="2"> <h3>City:</h3> </v-col>
             <v-col>{{loc.city}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Country:</h3> </v-col>
+            <v-col sm="2"> <h3>Country:</h3> </v-col>
             <v-col>{{loc.country}}</v-col>
           </v-row>
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Zip-Code:</h3> </v-col>
+            <v-col sm="2"> <h3>Zip-Code:</h3> </v-col>
             <v-col>{{loc.zip_code}}</v-col>
-            <v-col cols="1" sm="2"> </v-col>
+            <v-col sm="2"> </v-col>
             <v-col></v-col>
           </v-row>
         </v-card-text>
@@ -57,22 +57,22 @@
         <v-spacer></v-spacer>
         <v-card-text v-for="edu in preview.education_details">
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Qualification:</h3> </v-col>
+            <v-col sm="2"> <h3>Qualification:</h3> </v-col>
             <v-col>{{edu.qualification}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Course Name:</h3> </v-col>
+            <v-col sm="2"> <h3>Course Name:</h3> </v-col>
             <v-col>{{edu.course_name}}</v-col>
           </v-row>
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Institue Name:</h3> </v-col>
+            <v-col sm="2"> <h3>Institue Name:</h3> </v-col>
             <v-col>{{edu.institute_name}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Location:</h3> </v-col>
+            <v-col sm="2"> <h3>Location:</h3> </v-col>
             <v-col>{{edu.location}}</v-col>
           </v-row>
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Start Date:</h3> </v-col>
-            <v-col>{{edu.start_date}}</v-col>
-            <v-col cols="1" sm="2"> <h3>End Date:</h3> </v-col>
-            <v-col>{{edu.end_date}}</v-col>
+            <v-col sm="2"> <h3>Start Date:</h3> </v-col>
+            <v-col >{{edu.start_date}}</v-col>
+            <v-col sm="2"> <h3>End Date:</h3> </v-col>
+            <v-col >{{edu.end_date}}</v-col>
           </v-row>
         </v-card-text>
         <v-spacer></v-spacer>
@@ -80,29 +80,30 @@
         <v-spacer></v-spacer>
         <v-card-text v-for="work in preview.work_details">
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Organisation:</h3> </v-col>
+            <v-col  sm="2"> <h3>Organisation:</h3> </v-col>
             <v-col>{{work.organisation}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Jobe:</h3> </v-col>
+            <v-col  sm="2"> <h3>Jobe:</h3> </v-col>
             <v-col>{{work.job_role}}</v-col>
           </v-row>
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Key Roles:</h3> </v-col>
+            <v-col  sm="2"> <h3>Key Roles:</h3> </v-col>
             <v-col>{{work.key_roles}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Start Date:</h3> </v-col>
+            <v-col  sm="2"> <h3>Start Date:</h3> </v-col>
             <v-col>{{work.start_date}}</v-col>
           </v-row>
           <v-row>
-            <v-col cols="1" sm="2"> <h3>End Date:</h3> </v-col>
+            <v-col  sm="2"> <h3>End Date:</h3> </v-col>
             <v-col>{{work.end_date}}</v-col>
+            <v-col></v-col>
           </v-row>
         </v-card-text>
         <v-card-title class="text">Skills</v-card-title>
         <v-spacer></v-spacer>
         <v-card-text v-for="skil in preview.skills">
-          <v-row>
-            <v-col cols="1" sm="2"> <h3>Skill:</h3> </v-col>
+          <v-row >
+            <v-col sm="2"> <h3>Skill:</h3> </v-col>
             <v-col>{{skil.skill}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Rating:</h3> </v-col>
+            <v-col sm="2"> <h3>Rating:</h3> </v-col>
             <v-col>{{skil.rating}}</v-col>
           </v-row>
         </v-card-text>
@@ -110,15 +111,15 @@
         <v-spacer></v-spacer>
         <v-card-text v-for="project in preview.projects">
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Project Title:</h3> </v-col>
+            <v-col sm="2"> <h3>Project Title:</h3> </v-col>
             <v-col>{{project.project_title}}</v-col>
-            <v-col cols="1" sm="2"> <h3>Description:</h3> </v-col>
+            <v-col > <h3>Description:</h3> </v-col>
             <v-col>{{project.description}}</v-col>
           </v-row>
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Skills:</h3> </v-col>
+            <v-col sm="2"> <h3>Skills:</h3> </v-col>
             <v-col>{{project.skills}}</v-col>
-            <v-col cols="1" sm="2"></v-col>
+            <v-col ></v-col>
             <v-col></v-col>
           </v-row>
         </v-card-text>
@@ -126,15 +127,15 @@
         <v-spacer></v-spacer>
         <v-card-text v-for="soc in preview.social_media">
           <v-row>
-            <v-col cols="1" sm="2"> <h3>Network:</h3> </v-col>
+            <v-col  sm="2"> <h3>Network:</h3> </v-col>
             <v-col>{{soc.network}}</v-col>
-            <v-col cols="1" sm="2"> <h3>URL:</h3> </v-col>
+            <v-col > <h3>URL:</h3> </v-col>
             <v-col>{{soc.url}}</v-col>
           </v-row>
           <v-row>
-            <v-col cols="1" sm="2"> <h3>User Name:</h3> </v-col>
+            <v-col  sm="2"> <h3>User Name:</h3> </v-col>
             <v-col>{{soc.user_name}}</v-col>
-            <v-col cols="1" sm="2">  </v-col>
+            <v-col >  </v-col>
             <v-col></v-col>
           </v-row>
         </v-card-text>
