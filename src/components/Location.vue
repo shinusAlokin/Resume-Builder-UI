@@ -49,35 +49,34 @@
           </v-row>
           <v-divider></v-divider>
 
-          <v-row>
+          <!-- <v-row>
             <v-col cols="1" sm="2">Country*</v-col>
             <v-col cols="12" sm="8">
               <v-combobox
               :rules = "[v => !!v || 'Country is required']"
-                :value="country"
+                v-model="selectedCountry"
                 :items="countries"
                 placeholder="Country"
-                @input="$emit('update:country', $event.target.value)"
                 variant="underlined"
                 color="teal"
               ></v-combobox>
             </v-col>
           </v-row>
-          <v-divider></v-divider>
+          <v-divider></v-divider> -->
 
-          <!-- <v-row>
+          <v-row>
             <v-col cols="1" sm="2">Country*</v-col>
             <v-col cols="12" sm="8">
               <v-select
+                v-model="selectedCountry"
                 :items="countries"
                 placeholder="Country"
-                @input="$emit('update:country', $event.target.value)"
                 variant="underlined"
                 color="teal"
               ></v-select>
             </v-col>
           </v-row>
-          <v-divider></v-divider> -->
+          <v-divider></v-divider> 
 
           <v-row>
             <v-col cols="1" sm="2">Zip-Code* </v-col>
@@ -114,6 +113,7 @@
 
 <script>
 
+
 export default{
     name: "Location",
     props:{
@@ -126,10 +126,21 @@ export default{
     data(){
       return{
         count:1,
-        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy'],
-
+        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy']
   }
 },
+computed: {
+    selectedCountry: {
+      // getter
+      get() {
+        return this.country
+      },
+      // setter
+      set(newValue) {
+        this.$emit('update:country', newValue)
+      }
+    }
+  },
 methods:{
     remove(){
       if (this.count > 1){
@@ -139,7 +150,6 @@ methods:{
     },
     addMore(){
       this.count++
-
     }
   },
 }

@@ -8,7 +8,7 @@
 
   <div class="nav-links">
     <router-link to="/list" class="nav-link">
-      <i class="fa-regular fa-less-than"></i> Back to Home
+      <i class="fa-regular fa-less-than"></i>&nbsp; Back to Home
       Page</router-link
     >
   </div>
@@ -61,6 +61,7 @@
         @add-data="adder(locationDetails)"
         @remove-data="remover(locationDetails, index)"
       />
+      County: {{item.country}}
     </div>
    
     

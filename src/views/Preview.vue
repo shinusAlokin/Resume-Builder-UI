@@ -113,14 +113,13 @@
           <v-row>
             <v-col sm="2"> <h3>Project Title:</h3> </v-col>
             <v-col>{{project.project_title}}</v-col>
-            <v-col > <h3>Description:</h3> </v-col>
+            <v-col sm="2"> <h3>Description:</h3> </v-col>
             <v-col>{{project.description}}</v-col>
           </v-row>
           <v-row>
             <v-col sm="2"> <h3>Skills:</h3> </v-col>
             <v-col>{{project.skills}}</v-col>
             <v-col ></v-col>
-            <v-col></v-col>
           </v-row>
         </v-card-text>
         <v-card-title class="text">Social Media</v-card-title>
@@ -129,7 +128,7 @@
           <v-row>
             <v-col  sm="2"> <h3>Network:</h3> </v-col>
             <v-col>{{soc.network}}</v-col>
-            <v-col > <h3>URL:</h3> </v-col>
+            <v-col sm="2"> <h3>URL:</h3> </v-col>
             <v-col>{{soc.url}}</v-col>
           </v-row>
           <v-row>
@@ -141,7 +140,6 @@
         </v-card-text>
       </v-card>
     </v-container>
-
   </template>
   <script>
   
@@ -184,9 +182,8 @@
   @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;700;900&family=Roboto+Slab:wght@400;800&family=Roboto:wght@100;300;400;500;700;900&display=swap');
   
   .text {
-    font-family: 'Poppins', sans-serif;
-font-family: 'Roboto', sans-serif;
-font-family: 'Roboto Slab', serif;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 700;
     text-align: center;
     font-size: 1.1rem;
     padding-right: 1em;
@@ -206,19 +203,15 @@ font-family: 'Roboto Slab', serif;
   
 
   .v-row {
-    font-family: 'Poppins', sans-serif;
-font-family: 'Roboto', sans-serif;
-font-family: 'Roboto Slab', serif;
+    font-family: 'Roboto', sans-serif;
     font-size: 0.9rem;
     position: relative;
     left: 5%;
   }
   .v-row h3 {
-    font-family: 'Poppins', sans-serif;
-font-family: 'Roboto', sans-serif;
-font-family: 'Roboto Slab', serif;
-    font-size: 0.9rem;
-    font-weight: 500;
+  font-family: 'Roboto', sans-serif;
+  font-size: 0.9rem;
+  font-weight: 600;
   }
   </style>
   

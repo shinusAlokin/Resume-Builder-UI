@@ -1,5 +1,4 @@
 <template>
-      
     <div class="input-container">
       <v-text-field
         density="compact"
@@ -22,8 +21,7 @@
         @something="[deleteBasic(deleteId), $emit('delete-success')]"
       />
     </template>
-  
-    <v-table class="content-table" focusable>
+    <v-table fluid class="content-table" focusable>
       <thead>
         <tr>
           <th class="text-left" v-for="item in heading">
@@ -220,6 +218,7 @@
   .content-table {
     box-shadow: 2px 2px 4px 0 rgba(0,0,0,.1);
   }
+  
   .items {
     font-size: 0.9rem;
   }
@@ -241,14 +240,23 @@
     color: #333;
   }
   
-  
   .input-container {
     margin-top: -1.5em;
     width: 35%;
   }
-  
   .content-table {
     width: 100%;
+  }
+
+  @media (max-width:530px){
+    .content-table{
+      max-width: 100%;
+    }
+    
+    tbody{
+      width: 100%;
+    }
+    
   }
   </style>
   

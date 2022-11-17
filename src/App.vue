@@ -98,17 +98,21 @@ body{
 
 .v-expansion-panel-text{
 background: rgb(224,245,245);
-background: linear-gradient(90deg, rgba(224,245,245,1) 16%, rgba(255,255,255,1) 16%);
+background: linear-gradient(90deg, rgba(224,245,245,0.5) 16%, rgba(255,255,255,1) 16%);
 }
 
 .add-rm-btn{
   position: relative;
   left: 16%;
 }
+.v-cont{
+  width: 100%;
+}
 
-/* @media (max-width:900){
-  .v-expansion-panel-text{
+@media (max-width:900px){
+.v-expansion-panel-text{
 background: rgb(224,245,245);
-background: linear-gradient(90deg, rgba(224,245,245,1) 16%, rgba(255,255,255,1) 16%);
-} */
+background: linear-gradient(90deg, rgba(224,245,245,1) 0%, rgba(255,255,255,1) 0%);
+}
+}
 </style>
