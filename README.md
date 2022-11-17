@@ -1,4 +1,4 @@
-# vuetify-vue3-resume
+
 
 ## Project setup
 ```
