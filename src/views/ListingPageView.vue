@@ -5,7 +5,7 @@
       <div class="right-container">
         <div  class="listing-alert">
         <v-alert v-model="deleteAlert" type="success" closable
-        variant="outlined"
+        variant="outlined" text
         Dense
          >Deleted successfully</v-alert
     >
@@ -64,7 +64,7 @@
   }
   
   .right-container{
-    width: 95%;
+    width: 98%;
     padding: 1em;
     margin-top: 10px;
     display: flex;

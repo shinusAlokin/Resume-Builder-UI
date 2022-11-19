@@ -10,13 +10,16 @@ const routes = [
     name: 'home',
     component: ListingPageView,
     meta:{
-      reload:true
+      title:"Home"
     }
   },
   {
     path: '/list',
     name: 'listing',
-    component: ListingPageView
+    component: ListingPageView,
+    meta:{
+      title:"Home"
+    }
   },
   {
     path: '/add',

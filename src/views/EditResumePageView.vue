@@ -2,9 +2,14 @@
   <div>
     <v-alert v-model="error_alert" type="error" closable 
     variant="outlined" dense prominent
-      >You should enter value for all the fields</v-alert
+      >{{error}}</v-alert
     >
   </div>
+  
+  <div class="sub-head">
+        <h3>Update Resume</h3>
+  </div>
+  <v-divider></v-divider>
 
   <div class="nav-links">
     <router-link to="/list" class="nav-link">
@@ -39,6 +44,17 @@
     />
   </template>
 
+  <template>
+    <Dialog
+      :dialog="emptyAlert"
+      alertType="info"
+      buttonColor="Teal"
+      cancelText="Ok"
+      heading="Empty Section"
+      message="You should enter atleast one Skill"
+    />
+  </template>
+
   <v-form class="main-form">
     <div class="form-cont basic-detail">
       <BasicDetails
@@ -50,8 +66,9 @@
       />
     </div>
 
-    <div class="form-cont location" v-for="item in locationDetails">
+    <div class="form-cont location" >
       <Location
+        v-for="(item, index) in locationDetails"
         v-model:address_line="item.address_line"
         v-model:street_name="item.street_name"
         v-model:city="item.city"
@@ -59,12 +76,13 @@
         v-model:zip_code="item.zip_code"
         :countries="countries"
         @add-data="adder(locationDetails)"
-        @remove-data="remover(locationDetails, removeLocation, item.id)"
+        @remove-data="remover(locationDetails, removeLocation, item.id, index)"
       />
     </div>
 
-    <div class="form-cont education" v-for="item in educationDetails">
+    <div class="form-cont education" >
       <Education
+        v-for="(item, index) in educationDetails"
         v-model:qualification="item.qualification"
         v-model:course_name="item.course_name"
         v-model:institute_name="item.institute_name"
@@ -72,24 +90,26 @@
         v-model:start_date="item.start_date"
         v-model:end_date="item.end_date"
         @add-data="adder(educationDetails)"
-        @remove-data="remover(educationDetails, removeEducation, item.id)"
+        @remove-data="remover(educationDetails, removeEducation, item.id, index)"
       />
     </div>
 
-    <div class="form-cont work" v-for="item in workDetails">
+    <div class="form-cont work" >
       <Work
+        v-for="(item, index) in workDetails"
         v-model:organisation="item.organisation"
         v-model:job_role="item.job_role"
         v-model:key_roles="item.key_roles"
         v-model:start_date="item.start_date"
         v-model:end_date="item.end_date"
         @add-data="adder(workDetails)"
-        @remove-data="remover(workDetails,removeWork, item.id)"
+        @remove-data="remover(workDetails, removeWork, item.id, index)"
       />
     </div>
 
-    <div class="form-cont skills" v-for="(item, index) in skillDetails">
+    <div class="form-cont skills" >
       <Skills
+        v-for="(item, index) in skillDetails"
         v-model:skill="item.skill"
         v-model:rating="item.rating"
         @add-data="adder(skillDetails)"
@@ -98,28 +118,32 @@
       />
     </div>
 
-    <div class="form-cont projects" v-for="item in projects">
+    <div class="form-cont projects" >
       <Projects
+        v-for="(item, index) in projects"
         v-model:project_title="item.project_title"
         v-model:skills="item.skills"
         v-model:description="item.description"
         @add-data="adder(projects)"
-        @remove-data="remover(projects,removeProject, item.id)"
+        @remove-data="remover(projects,removeProject, item.id, index)"
       />
     </div>
 
-    <div class="form-cont social_media" v-for="item in socialMedia">
+    <div class="form-cont social_media" >
       <SocialMedia
+        v-for="(item, index) in socialMedia"
         v-model:network="item.network"
         v-model:user_name="item.user_name"
         v-model:url="item.url"
         @add-data="adder(socialMedia)"
-        @remove-data="remover(socialMedia,removeSocialMedia, item.id)"
+        @remove-data="remover(socialMedia,removeSocialMedia, item.id, index)"
       />
     </div>
-
-    <v-btn class="mr-4 btn" @click="updateResume"> submit </v-btn>
-    <v-btn class="mr-4 btn" @click="cancelDialog = true">Cancel</v-btn>
+    <div class="btn-div">
+      <v-btn class="mr-4 btn" @click="updateResume"> Save </v-btn>
+      <v-btn class="cancel-resume-btn" @click="cancelDialog = true">Cancel</v-btn>
+    </div>
+    
   </v-form>
   <router-view />
 </template>
@@ -139,7 +163,9 @@ import Dialog from '@/components/Dialog.vue'
     data(){
       return{
         error_alert: false,
+        error:'',
         count:1,
+        emptyAlert: false, 
         dialog: false,
         toEdit:[],
         preview: true,
@@ -200,9 +226,10 @@ import Dialog from '@/components/Dialog.vue'
           }).then((res) =>{
               console.log(res.data)
               if(res.data.hasOwnProperty('error_message')){
-                console.log("key exists")
+                this.error = res.data.error_message[0].msg
                 this.error_alert = true
                 window.scrollTo(0,0)
+                console.log(this.error)
         }
         else{
           this.error_alert = false
@@ -225,12 +252,15 @@ import Dialog from '@/components/Dialog.vue'
         listDict.push(newDict)
       },
       async remover(list, item_url, item_id, index){
-        if (list.length > 1 && item_id){
+        if (item_id && list.length > 1){
           await axios.delete(item_url + `${item_id}`)
           list.splice(index, 1)
         }
-        else{
+        else if(list.length > 1){
           list.splice(index, 1)
+        }
+        else{
+          this.emptyAlert = true
         }
       }
     },
@@ -271,8 +301,12 @@ import Dialog from '@/components/Dialog.vue'
   margin-top: 80px;
 }
 .btn {
-  background-color: rgb(4, 72, 72);
+  background-color: teal;
   color: white;
+}
+
+.cancel-resume-btn{
+  color: teal;
 }
 .main-form {
   margin: 1em;

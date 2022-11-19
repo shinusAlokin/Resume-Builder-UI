@@ -83,7 +83,7 @@
             </v-col>
           </v-row>
           <v-divider></v-divider>
-
+        </v-container>
           <div class="add-rm-btn">
           <v-btn
             @click="[addMore, $emit('add-data', data)]"
@@ -95,7 +95,6 @@
             ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
           >
         </div>
-        </v-container>
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>

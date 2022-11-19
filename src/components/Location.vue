@@ -1,6 +1,6 @@
 <template>
-  <v-expansion-panels focusable class="accordion">
-    <v-expansion-panel title="Location Details">
+  <v-expansion-panels focusable class="accordion"  v-model="panel" >
+    <v-expansion-panel title="Location Details"  expand>
       <v-expansion-panel-text v-for="(i, k) in count" :key="k">
         <v-container fluid>
           <v-row>
@@ -93,6 +93,7 @@
             </v-col>
           </v-row>
           <v-divider></v-divider>
+        </v-container>
           <div class="add-rm-btn">
           <v-btn
             @click="[addMore, $emit('add-data', data)]"
@@ -104,7 +105,6 @@
             ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
           >
         </div>
-        </v-container>
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
@@ -125,8 +125,9 @@ export default{
     },
     data(){
       return{
+        panel:1,
         count:1,
-        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy']
+        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy', 'Germany']
   }
 },
 computed: {

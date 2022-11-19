@@ -107,7 +107,7 @@
             <v-col>{{skil.rating}}</v-col>
           </v-row>
         </v-card-text>
-        <v-card-title class="text">Projects</v-card-title>
+        <v-card-title v-if="preview.projects" class="text">Projects</v-card-title>
         <v-spacer></v-spacer>
         <v-card-text v-for="project in preview.projects">
           <v-row>
@@ -122,9 +122,9 @@
             <v-col ></v-col>
           </v-row>
         </v-card-text>
-        <v-card-title class="text">Social Media</v-card-title>
+        <v-card-title   class="text">Social Media</v-card-title>
         <v-spacer></v-spacer>
-        <v-card-text v-for="soc in preview.social_media">
+        <v-card-text v-if="preview.social_media" v-for="soc in preview.social_media">
           <v-row>
             <v-col  sm="2"> <h3>Network:</h3> </v-col>
             <v-col>{{soc.network}}</v-col>

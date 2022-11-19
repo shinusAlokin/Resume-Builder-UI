@@ -1,13 +1,19 @@
 <template>
+  <title>Home</title>
   <div>
     <v-alert v-model="error_alert" type="error" closable variant="outlined"
     dense
-      >You should enter value for all the fields</v-alert
+      >{{error}}</v-alert
     >
   </div>
+  
+  <div class="sub-head">
+        <h3>Create Resume</h3>
+  </div>
+  <v-divider></v-divider>
 
   <div class="nav-links">
-    <router-link to="/list" class="nav-link">
+    <router-link to="/" class="nav-link">
       <i class="fa-regular fa-less-than"></i>&nbsp; Back to Home
       Page</router-link
     >
@@ -35,7 +41,20 @@
       :preview="preview"
       heading="Cancel"
       to="/"
+      cancelText="No"
       message="Cancel resume creation and go back to Home Page?"
+    />
+
+  </template>
+
+  <template>
+    <Dialog
+      :dialog="emptyAlert"
+      alertType="info"
+      buttonColor="Teal"
+      cancelText="Ok"
+      heading="Empty Section"
+      message="You should enter atleast one Skill"
     />
   </template>
 
@@ -51,8 +70,9 @@
       />
     </div>
 
-    <div class="form-cont location" v-for="(item, index) in locationDetails">
+    <div class="form-cont location" >
       <Location
+        v-for="(item, index) in locationDetails"
         v-model:address_line="item.address_line"
         v-model:street_name="item.street_name"
         v-model:city="item.city"
@@ -61,13 +81,13 @@
         @add-data="adder(locationDetails)"
         @remove-data="remover(locationDetails, index)"
       />
-      County: {{item.country}}
     </div>
    
     
 
-    <div class="form-cont education" v-for="(item, index) in educationDetails">
+    <div class="form-cont education" >
       <Education
+        v-for="(item, index) in educationDetails"
         v-model:qualification="item.qualification"
         v-model:course_name="item.course_name"
         v-model:institute_name="item.institute_name"
@@ -79,8 +99,9 @@
       />
     </div>
 
-    <div class="form-cont work" v-for="(item,index) in workDetails">
+    <div class="form-cont work" >
       <Work
+        v-for="(item,index) in workDetails"
         v-model:organisation="item.organisation"
         v-model:job_role="item.job_role"
         v-model:key_roles="item.key_roles"
@@ -91,8 +112,9 @@
       />
     </div>
 
-    <div class="form-cont skills" v-for="(item,index) in skillDetails">
+    <div class="form-cont skills" >
       <Skills
+      v-for="(item,index) in skillDetails"
         v-model:skill="item.skill"
         v-model:rating="item.rating"
         @add-data="adder(skillDetails)"
@@ -100,8 +122,9 @@
       />
     </div>
 
-    <div class="form-cont projects" v-for="(item, index) in projects">
+    <div class="form-cont projects" >
       <Projects
+        v-for="(item, index) in projects"
         v-model:project_title="item.project_title"
         v-model:skills="item.skills"
         v-model:description="item.description"
@@ -110,8 +133,9 @@
       />
     </div>
 
-    <div class="form-cont social_media" v-for="item in socialMedia">
+    <div class="form-cont social_media" >
       <SocialMedia
+        v-for="item in socialMedia"
         v-model:network="item.network"
         v-model:user_name="item.user_name"
         v-model:url="item.url"
@@ -119,9 +143,11 @@
         @remove-data="remover(socialMedia)"
       />
     </div>
-
-    <v-btn class="mr-4 btn" @click.prevent="addBasic"> submit </v-btn>
-    <v-btn class="mr-4 btn" @click="cancelDialog = true">Cancel</v-btn>
+  <div class="btn-div">
+    <v-btn class="mr-4 btn" @click.prevent="addBasic"> Save </v-btn>
+    <v-btn class="cancel-resume-btn" @click="cancelDialog = true">Cancel</v-btn>
+  </div>
+    
   </v-form>
 </template>
 
@@ -143,14 +169,16 @@ import Dialog from '@/components/Dialog.vue'
     data(){
       return{
         error:'',
+        emptyAlert: false,
         alert: false,
         error_alert: false,
         dialog:false,
         cancelDialog:false,
         preview: true,
+        panelCount:0,
         cancel:true,
         count:1,
-        currenLastId: 191,
+        currenLastId: 0,
         
 
         basic:{
@@ -186,7 +214,11 @@ import Dialog from '@/components/Dialog.vue'
       computed:{
         failed(){
           return this.error
+        },
+        lastIdUpdated(){
+          return this.currenLastId
         }
+
       },
 
 
@@ -215,13 +247,12 @@ import Dialog from '@/components/Dialog.vue'
         .then((res) =>{
           console.log(res.data)
           if(res.data.hasOwnProperty('error_message')){
-            console.log("key exists")
             this.error_alert = true
             this.dialog = false
-            this.error = res.data.error_message
+            this.error = res.data.error_message[0].msg
           }
           else{
-            this.currenLastId++
+            this.currenLastId = res.data.created_id
             this.dialog=true
             this.error_alert = false
 
@@ -248,21 +279,27 @@ import Dialog from '@/components/Dialog.vue'
       },
 
       remover(list, index){
-       list.splice(index, 1) 
+        if(list.length > 1){
+          list.splice(index, 1) 
+      }
+      else{
+        this.emptyAlert = true
       }
     }
+  }
   }
 </script>
 
 <style scoped>
 
-
-
-.expansion {
-  margin-top: 80px;
+.cancel-resume-btn{
+  color: teal;
 }
+
+
+
 .btn {
-  background-color: rgb(2, 71, 71);
+  background-color: teal;
   color: white;
   width: 100px;
 }

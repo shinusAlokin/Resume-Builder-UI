@@ -1,10 +1,11 @@
 <template>
   <v-row justify="center">
     <v-dialog v-model="dialog" width="600">
-      <v-alert density="compact" prominent :type="alertType" closable>
+      
+      <v-card>
+        <v-alert density="compact" text prominent variant="outlined" :type="alertType" closable>
         {{heading}}
       </v-alert>
-      <v-card>
         <v-card-title class="text-h5"> </v-card-title>
 
         <v-card-text>
@@ -13,7 +14,7 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="dialog = false"> Cancel </v-btn>
+          <v-btn color="grey" text @click="dialog = false"> {{cancelText}} </v-btn>
 
           <div v-if="!preview">
             <v-btn :color="buttonColor" text @click="$emit('something')">
@@ -51,6 +52,10 @@ export default {
       preview:{
         type: Boolean,
         default: false
+      },
+      cancelText:{
+        type:String,
+        default: "Cancel"
       }
   },
   methods:{

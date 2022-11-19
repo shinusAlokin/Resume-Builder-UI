@@ -1,8 +1,9 @@
 <template>
   <v-expansion-panels>
     <v-expansion-panel title="Education ">
-      <v-expansion-panel-text v-for="(i, k) in count" :key="k">
-        <v-container fluid>
+      <v-expansion-panel-text >
+        <v-row v-for="(i, k) in count" :key="k">
+        <v-container fluid >
           <v-row>
             <v-col cols="1" sm="2">Qualification*</v-col>
             <v-col cols="12" sm="8">
@@ -96,10 +97,12 @@
               ></v-text-field>
             </v-col>
           </v-row>
-          <v-divider></v-divider>
+          <v-divider></v-divider> 
+        </v-container>
+
           <div class="add-rm-btn">
           <v-btn
-            @click="[addMore, $emit('add-data', data)]"
+            @click="[$emit('add-data', data), addMore]"
             color="#00848E"
             variant="plain"
             ><i class="fas fa-plus" aria-hidden="true"></i>Add Education</v-btn
@@ -108,7 +111,8 @@
             ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
           >
         </div>
-        </v-container>
+      </v-row>
+        
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>

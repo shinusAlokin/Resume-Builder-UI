@@ -10,6 +10,7 @@
         @input="getSearchContent"
       ></v-text-field>
     </div>
+
     <template>
       <Dialog
         :dialog="dialog"
@@ -21,6 +22,7 @@
         @something="[deleteBasic(deleteId), $emit('delete-success')]"
       />
     </template>
+
     <v-table fluid class="content-table" focusable>
       <thead>
         <tr>
@@ -232,7 +234,7 @@
   }
   
   .content-table th {
-    background-color: #E0F5F5;
+    background-color: rgba(13, 164, 164, 0.2);
   }
   
   .edit-link {

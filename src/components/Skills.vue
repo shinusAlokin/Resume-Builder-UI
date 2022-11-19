@@ -1,7 +1,8 @@
 <template>
-  <v-expansion-panels focusable>
-    <v-expansion-panel title="Skills">
-      <v-expansion-panel-text v-for="(i, k) in count" :key="k">
+  <v-expansion-panels >
+    <v-expansion-panel title="Skills" expand>
+      <v-expansion-panel-text  >
+        <v-col>
         <v-container fluid>
           <v-row>
             <v-col cols="1" sm="2" class="label-col">Skill*</v-col>
@@ -36,7 +37,7 @@
         </v-container>
         <div class="add-rm-btn">
         <v-btn
-            @click="[addMore, $emit('add-data', data)]"
+           @click="$emit('add-data')" 
             color="#00848E"
             variant="plain"
             ><i class="fas fa-plus" aria-hidden="true"></i>Add Skill</v-btn
@@ -45,6 +46,8 @@
             ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
           >
         </div>
+      </v-col>
+
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
@@ -55,12 +58,15 @@ export default{
     name: "Skills",
     props:{
       skill: String,
+      panelCount:Number,
       rating: String,
+      ind:Number
     },
     data(){
         return{
+          panel:'',
           count: 1,
-          rules: [v => v => !!v  || 'This field is required',]
+          rules: [ v => !!v  || 'This field is required',],
         }
     },
     methods:{
@@ -73,7 +79,12 @@ export default{
     addMore(){
       this.count++
 
-    }
-  }
+    },
+  },
+  computed:{
+        currentPanel(){
+          return this.panel
+        }
+      }
 }
 </script>

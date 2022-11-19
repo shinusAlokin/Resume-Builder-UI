@@ -2,6 +2,7 @@
     <header>
         <h2>{{title}}</h2>
     </header>
+   
 </template>
 
 <script >

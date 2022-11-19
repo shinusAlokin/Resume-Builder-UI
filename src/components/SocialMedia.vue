@@ -2,6 +2,7 @@
   <v-expansion-panels>
     <v-expansion-panel title="Social Media">
       <v-expansion-panel-text>
+        <v-col v-for="(i, k) in count" :key="k">
         <v-container fluid>
           <v-row>
             <v-col cols="1" sm="2">Network</v-col>
@@ -60,6 +61,7 @@
             ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
           >
         </div>
+      </v-col>
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
@@ -91,6 +93,6 @@ export default {
 
     }
   }
-
 }
+
 </script>

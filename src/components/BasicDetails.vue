@@ -16,7 +16,6 @@
                   variant="underlined"
                   color="teal"
                   required
-                  clearable
                 ></v-text-field>
               </v-col>
             </v-row>
@@ -80,7 +79,6 @@
                   variant="underlined"
                   color="teal"
                   required
-                  clearable
                 ></v-textarea>
               </v-col>
             </v-row>
