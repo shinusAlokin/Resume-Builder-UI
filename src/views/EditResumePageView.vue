@@ -12,7 +12,7 @@
   <v-divider></v-divider>
 
   <div class="nav-links">
-    <router-link to="/list" class="nav-link">
+    <router-link to="/" class="nav-link">
       <i class="fa-regular fa-less-than" aria-hidden="true"></i> Back to Home
       Page</router-link
     >
@@ -25,8 +25,9 @@
       buttonColor="Teal"
       action="Preview"
       :preview="preview"
+      goHome = true
       heading="update"
-      :to="`/preview/${id}`"
+      :to="`/api/resume/preview/${id}`"
       message="Resume updated successfully"
     />
   </template>
@@ -51,11 +52,14 @@
       buttonColor="Teal"
       cancelText="Ok"
       heading="Empty Section"
-      message="You should enter atleast one Skill"
+      message="You should enter atleast one entry for this required field "
     />
   </template>
 
   <v-form class="main-form">
+    <div class="required">
+    <small>fields indicated with * is required</small>
+  </div>
     <div class="form-cont basic-detail">
       <BasicDetails
         v-model:name="basic.name"
@@ -114,7 +118,6 @@
         v-model:rating="item.rating"
         @add-data="adder(skillDetails)"
         @remove-data="remover(skillDetails, removeSkill, item.id, index)"
-        :skill_id="item.id"
       />
     </div>
 

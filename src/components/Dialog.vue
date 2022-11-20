@@ -14,7 +14,15 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="grey" text @click="dialog = false"> {{cancelText}} </v-btn>
+          <div v-if="goHome">
+            <a href="/" class="nav-link"
+              ><v-btn text> Back to Home </v-btn></a
+            >
+          </div>
+          <div v-else>
+            <v-btn color="grey" text @click="dialog = false"> {{cancelText}} </v-btn>
+          </div>
+          
 
           <div v-if="!preview">
             <v-btn :color="buttonColor" text @click="$emit('something')">
@@ -56,6 +64,10 @@ export default {
       cancelText:{
         type:String,
         default: "Cancel"
+      },
+      goHome:{
+        type:Boolean,
+        default: false
       }
   },
   methods:{

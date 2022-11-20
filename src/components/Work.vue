@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels>
-    <v-expansion-panel title="Work">
+    <v-expansion-panel title="Work*">
       <v-expansion-panel-text v-for="(i, k) in count" :key="k">
         <v-container fluid>
           <v-row no-gutters="false">

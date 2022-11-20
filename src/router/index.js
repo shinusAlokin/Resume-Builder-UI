@@ -13,30 +13,37 @@ const routes = [
       title:"Home"
     }
   },
+  // {
+  //   path: '/list',
+  //   name: 'listing',
+  //   component: ListingPageView,
+  //   meta:{
+  //     title:"Home"
+  //   }
+  // },
   {
-    path: '/list',
-    name: 'listing',
-    component: ListingPageView,
+    path: '/api/resume/new',
+    name: 'add',
+    component: ResumePageView,
     meta:{
-      title:"Home"
+      title: "Create Resume"
     }
   },
   {
-    path: '/add',
-    name: 'add',
-    component: ResumePageView
-  },
-  {
-    path: '/edit/:id',
+    path: '/api/resume/edit/:id',
     name: 'editResume',
-    component: EditResumePageView
+    component: EditResumePageView,
+    meta:{
+      title: "Update Resume"
+    }
   },
   {
-    path: '/preview/:id',
+    path: '/api/resume/preview/:id',
     name: 'previewResume',
     component: Preview,
     meta:{
-      reload:true
+      reload:true,
+      title: "Preview Resume"
     }
   }
 ]

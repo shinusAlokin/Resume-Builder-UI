@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels focusable v-model="panel">
-    <v-expansion-panel title="Basic Details" expand>
+    <v-expansion-panel title="Basic Details*" expand>
       <v-form>
         <v-expansion-panel-text>
           <v-container fluid>
@@ -113,6 +113,7 @@ import { useVuelidate } from '@vuelidate/core'
         nameRules: [
                     v => !!v  || 'Name is required',
                     v => (v && v.length >= 3) || 'Name must be more than 3 characters',
+                    v => /[A-Za-z]/.test(v) || 'Invalid Name'
                     ],
         emailRules: [
                     v => !!v || 'E-mail is required',

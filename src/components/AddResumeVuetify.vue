@@ -2,7 +2,7 @@
 
     <div class="add-resume-listingpage">
         <i class="fa fa-plus" aria-hidden="true"></i>
-        <router-link to="/add">{{context}}</router-link>
+        <router-link to="/api/resume/new">{{context}}</router-link>
         <router-view /> 
     </div>
    

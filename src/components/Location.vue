@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels focusable class="accordion"  v-model="panel" >
-    <v-expansion-panel title="Location Details"  expand>
+    <v-expansion-panel title="Location Details*"  expand>
       <v-expansion-panel-text v-for="(i, k) in count" :key="k">
         <v-container fluid>
           <v-row>
@@ -84,7 +84,7 @@
               <v-text-field
                 @input="$emit('update:zip_code', $event.target.value)"
                 :value="zip_code"
-                :rules = "[v => !!v || 'Zip-Code is required']"
+                :rules = "zipRules"
                 placeholder="Zip-Code"
                 variant="underlined"
                 color="teal"
@@ -127,7 +127,12 @@ export default{
       return{
         panel:1,
         count:1,
-        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy', 'Germany']
+        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy', 'Germany'],
+        zipRules: [this.selectedCountry =='India' ?
+                      v => /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/.test(v) || 'Invalid Pin code for India'
+                    : this.selectedCountry === 'US'? v => /^[0-9]{5}(-[0-9]{4})?$/.test(v) : 
+                    v => !!v || 'Zip Code is required'
+                  ]
   }
 },
 computed: {

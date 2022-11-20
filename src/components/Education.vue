@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels>
-    <v-expansion-panel title="Education ">
+    <v-expansion-panel title="Education*">
       <v-expansion-panel-text >
         <v-row v-for="(i, k) in count" :key="k">
         <v-container fluid >

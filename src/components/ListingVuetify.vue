@@ -51,18 +51,28 @@
                 <v-list-item class="list-items">
                   <v-list-item-title>
                     <router-link
-                      :to="`/edit/${i.basic_details_id}`"
+                      :to="`api/resume/edit/${i.basic_details_id}`"
                       class="edit-link"
-                      ><v-btn variant="plain">Edit</v-btn></router-link
+                      ><v-btn class="edit-dlt" variant="plain">Edit</v-btn></router-link
                     >
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item class="list-items">
                   <v-list-item-title
                     ><v-btn
+                    class="edit-dlt"
                       variant="plain"
                       @click="triggerDelete(i.basic_details_id)"
                       >Delete</v-btn
+                    >
+                  </v-list-item-title>
+                </v-list-item>
+                <v-list-item class="list-items">
+                  <v-list-item-title>
+                    <router-link
+                      :to="`api/resume/preview/${i.basic_details_id}`"
+                      class="edit-link"
+                      ><v-btn class="edit-dlt" variant="plain">Preview</v-btn></router-link
                     >
                   </v-list-item-title>
                 </v-list-item>
@@ -74,31 +84,32 @@
   
       <tbody v-for="item in searchedContent" v-else>
         <tr v-for="i in item" :key="i.basic_details_id" >
-          <td>{{ capitalizeName(i.name) }}</td>
+          <td>{{ capitalizeName(i.name) }}</td> 
           <td>{{ i.email_address }}</td>
           <td>{{ formatPhoneNumber(i.phone_number) }}</td>
           <td>{{ i.date_applied }}</td>
           <td>
             <v-menu>
-              <template v-slot:activator="{ props }">
-                <v-btn icon="mdi-dots-vertical" v-bind="props"></v-btn>
+              <template v-slot:activator="{on, props }">
+                <v-icon v-bind="props">mdi-dots-vertical</v-icon>
               </template>
   
               <v-list>
                 <v-list-item class="list-items">
                   <v-list-item-title>
                     <router-link
-                      :to="`/edit/${i.basic_details_id}`"
+                      :to="`api/resume/edit/${i.basic_details_id}`"
                       class="edit-link"
-                      ><v-btn variant="plain">Edit</v-btn></router-link
+                      ><v-btn class="edit-dlt" variant="plain">Edit</v-btn></router-link
                     >
                   </v-list-item-title>
                 </v-list-item>
                 <v-list-item class="list-items">
                   <v-list-item-title
                     ><v-btn
-                      @click="triggerDelete(i.basic_details_id)"
+                      class="edit-dlt"
                       variant="plain"
+                      @click="triggerDelete(i.basic_details_id)"
                       >Delete</v-btn
                     >
                   </v-list-item-title>
@@ -140,12 +151,13 @@
       },
       methods:{
           capitalizeName(name){
-            if (name){
-                return name[0].toUpperCase() + name.slice(1).toLowerCase()
-            }
-            return name
-              
-          },
+            let capitalized = ''
+            name.split(' ').forEach((i) => {
+                capitalized += i[0].toUpperCase() + i.slice(1).toLowerCase() + ' '
+            })
+            return capitalized
+
+              },
   
           formatPhoneNumber(num){
              let pattern = /^(1|91)?(\d{3})(\d{3})(\d{4})$/
@@ -220,6 +232,7 @@
   .content-table {
     box-shadow: 2px 2px 4px 0 rgba(0,0,0,.1);
   }
+
   
   .items {
     font-size: 0.9rem;
@@ -239,7 +252,7 @@
   
   .edit-link {
     text-decoration: none;
-    color: #333;
+    color: black;
   }
   
   .input-container {
@@ -248,6 +261,21 @@
   }
   .content-table {
     width: 100%;
+  }
+
+  .list-items{
+    width: 100%;
+  }
+
+  .edit-dlt{
+    color: black;
+    width: 100%;
+    margin: 0;
+    opacity: 1;
+  }
+  .edit-dlt:hover{
+    color: teal;
+    background-color: #fff;
   }
 
   @media (max-width:530px){

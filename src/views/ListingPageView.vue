@@ -13,7 +13,7 @@
         <Header title="Resumes" />
         <div class="search-addresume">
           <div></div>
-          <AddResumeVuetify  context="Add Resume"/>
+          <AddResumeVuetify  context="Add New Resume"/>
         </div>
           <Listing @delete-success="triggerDelete"/>
       </div>

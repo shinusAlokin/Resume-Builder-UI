@@ -20,6 +20,16 @@ export default {
       ]
     }
   },
+  watch:{
+    '$route':{
+      handler: (to, from) =>{
+        document.title = to.meta.title || 'Resume Builder'
+      },
+      immediate: true
+    }
+
+  },
+
 };
 </script>
 
@@ -123,6 +133,14 @@ background: linear-gradient(90deg, rgba(245,245,245,0.9) 16%, rgba(255,255,255,1
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
+}
+
+.required{
+  display: flex;
+  justify-content: flex-start;
+  color: #333;
+  align-items: center;
+  margin: 0.5em 0;
 }
 
 @media (max-width:900px){

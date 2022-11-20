@@ -18,6 +18,8 @@
       Page</router-link
     >
   </div>
+ 
+  
 
   <template>
     <Dialog
@@ -27,7 +29,8 @@
       action="Preview"
       :preview="preview"
       heading="Created"
-      :to="`/preview/${currenLastId}`"
+      goHome = true
+      :to="`/api/resume/preview/${currenLastId}`"
       message="Resume created successfully"
     />
   </template>
@@ -54,12 +57,15 @@
       buttonColor="Teal"
       cancelText="Ok"
       heading="Empty Section"
-      message="You should enter atleast one Skill"
+      message="You should enter atleast one entry for this required field "
     />
   </template>
 
 
   <v-form class="main-form">
+    <div class="required">
+    <small>fields indicated with * is required</small>
+  </div>
     <div class="form-cont basic-detail">
       <BasicDetails
         v-model:name="basic.name"
@@ -121,6 +127,7 @@
         @remove-data="remover(skillDetails,index)"
       />
     </div>
+   
 
     <div class="form-cont projects" >
       <Projects
@@ -281,6 +288,7 @@ import Dialog from '@/components/Dialog.vue'
       remover(list, index){
         if(list.length > 1){
           list.splice(index, 1) 
+          this.emptyAlert = false
       }
       else{
         this.emptyAlert = true
@@ -303,6 +311,7 @@ import Dialog from '@/components/Dialog.vue'
   color: white;
   width: 100px;
 }
+
 
 .main-form {
   margin: 1em;
