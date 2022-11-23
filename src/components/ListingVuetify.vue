@@ -23,7 +23,10 @@
       />
     </template>
 
-    <v-table fluid class="content-table" focusable>
+    <v-table fluid class="content-table elevation-1" focusable
+    :pagination.sync="page"
+    items-per-page="6" 
+    @page-count = "pageCount = $event">
       <thead>
         <tr>
           <th class="text-left" v-for="item in heading">
@@ -38,10 +41,10 @@
         v-if="searchContent"
       >
         <tr v-for="i in item" :key="i.basic_details_id">
-          <td>{{ capitalizeName(i.name) }}</td>
-          <td>{{ i.email_address }}</td>
-          <td>{{ formatPhoneNumber(i.phone_number) }}</td>
-          <td>{{ i.date_applied }}</td>
+          <td class="tb-td">{{ capitalizeName(i.name) }}</td>
+          <td class="tb-td">{{ i.email_address }}</td>
+          <td class="tb-td">{{ formatPhoneNumber(i.phone_number) }}</td>
+          <td class="tb-td">{{ i.date_applied }}</td>
           <td>
             <v-menu>
               <template v-slot:activator="{on, props }">
@@ -119,8 +122,17 @@
           </td>
         </tr>
       </tbody>
+   
     </v-table>
+   
     <router-view />
+    <!-- <div class="text-center">
+    <v-pagination
+      v-model="page"
+      :length="6"
+    ></v-pagination>
+  </div> -->
+  
   </template>
   
   <script>
@@ -147,6 +159,14 @@
               dialog: false,
               deleteId: 0,
               deleteAlert: true,
+              page:1,
+              pageCount:0,
+              pagination: {
+                ascending: true,
+                sortBy:"name",
+                rowsPerPage: 5,
+                page: 1
+            }
           }
       },
       methods:{
@@ -195,10 +215,9 @@
               console.log(error)
           })
       },
-      async deleteBasic(id){
+      async deleteBasic(id, search=false){
           await axios.delete(`http://127.0.0.1:8000/delete/${id}`)
             this.dialog = false
-            this.deleteAlert = true
             this.getContent()
             window.scrollTo(0, 0)
         
@@ -211,18 +230,19 @@
       },
       created(){
           this.getContent()
-          console.log(this.content)
       },
       
-      mounted(){
-        this.getContent()
-      },
+      // mounted(){
+      //   this.getContent()
+      // },
   
       computed:{
           searchContent(){
               return (this.searchedContent.length == 0 || this.search === '')
-  
           },
+          visiblePages(){
+            return this.content.slice((this.page - 1) * 6, this.page * 6)
+          }
   
       },
   }
@@ -233,7 +253,6 @@
     box-shadow: 2px 2px 4px 0 rgba(0,0,0,.1);
   }
 
-  
   .items {
     font-size: 0.9rem;
   }
@@ -242,10 +261,10 @@
     cursor: pointer;
   }
  tbody tr:hover{
-    background-color:  #F9FAFB;
+    background-color:rgba(6, 78, 78, 0.1);
     transition: 0.3s;
   }
-  
+
   .content-table th {
     background-color: rgba(13, 164, 164, 0.2);
   }
@@ -257,7 +276,8 @@
   
   .input-container {
     margin-top: -1.5em;
-    width: 35%;
+    width: 33%;
+    font-size: 1em;
   }
   .content-table {
     width: 100%;
@@ -278,14 +298,29 @@
     background-color: #fff;
   }
 
-  @media (max-width:530px){
+  @media (max-width:630px){
     .content-table{
       max-width: 100%;
     }
-    
-    tbody{
-      width: 100%;
+
+    .content-table td{
+      font-size:8px !important;
+      padding-right: 0 !important;
+      padding-left: 2px !important;
     }
+    .content-table td:first-child{
+      padding-left: 0.5em !important;
+    }
+    .items{
+      font-size:9px ;
+      padding-right: 0 !important;
+      padding-left: 0 !important;
+    }
+    .input-container{
+      font-size: 8px !important;
+      width: 50%;
+    }
+    
     
   }
   </style>

@@ -1,6 +1,6 @@
 <template>
   <v-expansion-panels>
-    <v-expansion-panel title="Work*">
+    <v-expansion-panel title="Work">
       <v-expansion-panel-text v-for="(i, k) in count" :key="k">
         <v-container fluid>
           <v-row no-gutters="false">
@@ -39,6 +39,7 @@
             <v-col cols="1" sm="2">Key Roles*</v-col>
             <v-col cols="12" sm="8">
               <v-textarea
+                auto-grow
                 :value="key_roles"
                 :rules = "[v => !!v || 'Key Roles is required']"
                 @input="$emit('update:key_roles', $event.target.value)"
@@ -68,14 +69,14 @@
           <v-divider></v-divider>
 
           <v-row>
-            <v-col cols="1" sm="2">End Date*</v-col>
+            <v-col cols="1" sm="2">Worked Till*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
                 :value="end_date"
                 :rules = "[v => !!v || 'End Date is required']"
                 onfocus="(this.type='date')"
                 @input="$emit('update:end_date', $event.target.value)"
-                placeholder="End Date"
+                placeholder="Worked Till"
                 variant="underlined"
                 color="teal"
                 required

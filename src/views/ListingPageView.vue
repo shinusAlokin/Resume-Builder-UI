@@ -17,8 +17,9 @@
         </div>
           <Listing @delete-success="triggerDelete"/>
       </div>
-
+     
     </div>
+    
   </template>
   
   <script>
@@ -36,7 +37,9 @@
         data(){
             return{
                 search: "",
-                deleteAlert: false
+                deleteAlert: false,
+                page:1
+               
             }
         },
         methods:{
@@ -82,6 +85,8 @@
     justify-content: space-between;
     margin-top: 10px;
   }
+
+
   
   </style>
   

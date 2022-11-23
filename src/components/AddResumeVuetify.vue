@@ -32,4 +32,13 @@
         cursor: pointer;
         font-size: 1rem;
     }
+
+    @media (max-width:630px){
+        .add-resume-listingpage{
+            font-size: 10px !important;
+  }
+  .add-resume-listingpage a{
+            font-size: 10px !important;
+  }
+}
 </style>

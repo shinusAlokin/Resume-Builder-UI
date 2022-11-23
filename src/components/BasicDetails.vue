@@ -8,7 +8,6 @@
               <v-col cols="1" sm="2">Name*</v-col>
               <v-col cols="12" sm="8">
                 <v-text-field
-                lazyvalidation
                   :value="name"
                   :rules="nameRules"
                   @input="$emit('update:name', $event.target.value)"
@@ -72,6 +71,7 @@
               <v-col cols="1" sm="2">Summary*</v-col>
               <v-col cols="12" sm="8">
                 <v-textarea
+                  auto-grow
                   :value="summary"
                   :rules = "[v => !!v || 'Summary is required']"
                   @input="$emit('update:summary', $event.target.value)"
@@ -112,7 +112,7 @@ import { useVuelidate } from '@vuelidate/core'
         panel:0,
         nameRules: [
                     v => !!v  || 'Name is required',
-                    v => (v && v.length >= 3) || 'Name must be more than 3 characters',
+                    v => (v && v.length >= 3) || 'Name must be  atleast 3 characters',
                     v => /[A-Za-z]/.test(v) || 'Invalid Name'
                     ],
         emailRules: [

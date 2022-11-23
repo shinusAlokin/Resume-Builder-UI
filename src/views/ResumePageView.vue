@@ -1,25 +1,27 @@
 <template>
   <title>Home</title>
   <div>
-    <v-alert v-model="error_alert" type="error" closable variant="outlined"
-    dense
+    <v-alert
+      v-model="error_alert"
+      type="error"
+      closable
+      variant="outlined"
+      dense
       >{{error}}</v-alert
     >
   </div>
-  
+
   <div class="sub-head">
-        <h3>Create Resume</h3>
+    <h3>Create Resume</h3>
   </div>
   <v-divider></v-divider>
 
   <div class="nav-links">
     <router-link to="/" class="nav-link">
-      <i class="fa-regular fa-less-than"></i>&nbsp; Back to Home
+      <i class="fa-regular fa-less-than"></i> Back to Home
       Page</router-link
     >
   </div>
- 
-  
 
   <template>
     <Dialog
@@ -29,7 +31,7 @@
       action="Preview"
       :preview="preview"
       heading="Created"
-      goHome = true
+      goHome="true"
       :to="`/api/resume/preview/${currenLastId}`"
       message="Resume created successfully"
     />
@@ -47,7 +49,6 @@
       cancelText="No"
       message="Cancel resume creation and go back to Home Page?"
     />
-
   </template>
 
   <template>
@@ -61,11 +62,10 @@
     />
   </template>
 
-
   <v-form class="main-form">
     <div class="required">
-    <small>fields indicated with * is required</small>
-  </div>
+      <small>fields indicated with * is required</small>
+    </div>
     <div class="form-cont basic-detail">
       <BasicDetails
         v-model:name="basic.name"
@@ -76,22 +76,20 @@
       />
     </div>
 
-    <div class="form-cont location" >
+    <div class="form-cont location">
       <Location
         v-for="(item, index) in locationDetails"
         v-model:address_line="item.address_line"
         v-model:street_name="item.street_name"
         v-model:city="item.city"
-        v-model:country = "item.country"
+        v-model:country="item.country"
         v-model:zip_code="item.zip_code"
         @add-data="adder(locationDetails)"
         @remove-data="remover(locationDetails, index)"
       />
     </div>
-   
-    
 
-    <div class="form-cont education" >
+    <div class="form-cont education">
       <Education
         v-for="(item, index) in educationDetails"
         v-model:qualification="item.qualification"
@@ -105,7 +103,7 @@
       />
     </div>
 
-    <div class="form-cont work" >
+    <div class="form-cont work">
       <Work
         v-for="(item,index) in workDetails"
         v-model:organisation="item.organisation"
@@ -114,47 +112,47 @@
         v-model:start_date="item.start_date"
         v-model:end_date="item.end_date"
         @add-data="adder(workDetails)"
-        @remove-data="remover(workDetails, index)"
+        @remove-data="remover(workDetails, index, removable=true)"
       />
     </div>
 
-    <div class="form-cont skills" >
+    <div class="form-cont skills">
       <Skills
-      v-for="(item,index) in skillDetails"
+        v-for="(item,index) in skillDetails"
         v-model:skill="item.skill"
         v-model:rating="item.rating"
         @add-data="adder(skillDetails)"
         @remove-data="remover(skillDetails,index)"
       />
     </div>
-   
 
-    <div class="form-cont projects" >
+    <div class="form-cont projects">
       <Projects
         v-for="(item, index) in projects"
         v-model:project_title="item.project_title"
         v-model:skills="item.skills"
         v-model:description="item.description"
         @add-data="adder(projects)"
-        @remove-data="remover(projects, index)"
+        @remove-data="remover(projects, index, removable=true)"
       />
     </div>
 
-    <div class="form-cont social_media" >
+    <div class="form-cont social_media">
       <SocialMedia
-        v-for="item in socialMedia"
+        v-for="(item, index) in socialMedia"
         v-model:network="item.network"
         v-model:user_name="item.user_name"
         v-model:url="item.url"
         @add-data="adder(socialMedia)"
-        @remove-data="remover(socialMedia)"
+        @remove-data="remover(socialMedia, index, removable=true)"
       />
     </div>
-  <div class="btn-div">
-    <v-btn class="mr-4 btn" @click.prevent="addBasic"> Save </v-btn>
-    <v-btn class="cancel-resume-btn" @click="cancelDialog = true">Cancel</v-btn>
-  </div>
-    
+    <div class="btn-div">
+      <v-btn class="mr-4 btn" @click.prevent="addBasic"> Save </v-btn>
+      <v-btn class="cancel-resume-btn" @click="cancelDialog = true">
+        Cancel
+      </v-btn>
+    </div>
   </v-form>
 </template>
 
@@ -186,7 +184,6 @@ import Dialog from '@/components/Dialog.vue'
         cancel:true,
         count:1,
         currenLastId: 0,
-        
 
         basic:{
         name: '',
@@ -285,13 +282,17 @@ import Dialog from '@/components/Dialog.vue'
         listDict.push(newDict)
       },
 
-      remover(list, index){
-        if(list.length > 1){
-          list.splice(index, 1) 
+      remover(list, index, removable=false){
+        if (!removable){
+          if(list.length > 1){
+          list.splice(index, 1)
           this.emptyAlert = false
-      }
-      else{
+      }else{
         this.emptyAlert = true
+      }
+    }
+      else{
+        list.splice(index, 1)
       }
     }
   }
@@ -299,19 +300,15 @@ import Dialog from '@/components/Dialog.vue'
 </script>
 
 <style scoped>
-
-.cancel-resume-btn{
+.cancel-resume-btn {
   color: teal;
 }
-
-
 
 .btn {
   background-color: teal;
   color: white;
   width: 100px;
 }
-
 
 .main-form {
   margin: 1em;

@@ -13,7 +13,6 @@
                 placeholder="Network"
                 variant="underlined"
                 color="teal"
-                clearable
                 required
               ></v-text-field>
             </v-col>

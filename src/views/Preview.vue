@@ -5,7 +5,7 @@
       Page</router-link
     >
   </div>
-    <v-container fluid>
+            <v-container fluid>
       <v-card class="mx-auto" justify>
         <v-card-title class="text">Basic Details</v-card-title>
         <v-divider></v-divider>
@@ -159,12 +159,18 @@
       </v-card>
     </v-container>
 
+    
+
   </template>
   <script>
   
   import axios from 'axios'
+  import VueHtml2pdf from 'vue-html2pdf'
   
   export default{
+    components:{
+      VueHtml2pdf
+    },
       data(){
           return{
               id: this.$route.params.id,
@@ -241,8 +247,6 @@
     max-width: 80%;
   }
   
-  
-
   .v-row {
     font-family: 'Roboto', sans-serif;
     font-size: 1rem;
@@ -251,7 +255,7 @@
   }
   .v-row h3 {
   font-family: 'Roboto', sans-serif;
-  font-size: 1.1rem;
+  font-size: 1rem;
   font-weight: 500;
   }
   </style>
