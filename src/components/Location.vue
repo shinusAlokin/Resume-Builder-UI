@@ -1,15 +1,14 @@
 <template>
-  <v-expansion-panels focusable class="accordion"  v-model="panel" >
-    <v-expansion-panel title="Location Details*"  expand>
+  <v-expansion-panels focusable class="accordion" v-model="panel">
+    <v-expansion-panel title="Location Details*" expand>
       <v-expansion-panel-text v-for="(i, k) in count" :key="k">
         <v-container fluid>
           <v-row>
             <v-col cols="1" sm="2">Address Line*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
-                @input="$emit('update:address_line', $event.target.value)"
-                :value="address_line"
-                :rules = "[v => !!v || 'Address Line is required']"
+                v-model="locationDetails[k].address_line"
+                :rules="[(v) => !!v || 'Address Line is required']"
                 placeholder="Address Line"
                 variant="underlined"
                 color="teal"
@@ -23,9 +22,8 @@
             <v-col cols="1" sm="2">Street Name*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
-                :value="street_name"
-                :rules = "[v => !!v || 'Street Name is required']"
-                @input="$emit('update:street_name', $event.target.value)"
+                v-model="locationDetails[k].street_name"
+                :rules="[(v) => !!v || 'Street Name is required']"
                 placeholder="Street Name"
                 variant="underlined"
                 color="teal"
@@ -38,9 +36,8 @@
             <v-col cols="1" sm="2">City*</v-col>
             <v-col cols="12" sm="8">
               <v-text-field
-                :value="city"
-                :rules = "[v => !!v || 'City  is required']"
-                @input="$emit('update:city', $event.target.value)"
+                :rules="[(v) => !!v || 'City  is required']"
+                v-model="locationDetails[k].city"
                 placeholder="City"
                 variant="underlined"
                 color="teal"
@@ -49,42 +46,25 @@
           </v-row>
           <v-divider></v-divider>
 
-          <!-- <v-row>
-            <v-col cols="1" sm="2">Country*</v-col>
-            <v-col cols="12" sm="8">
-              <v-combobox
-              :rules = "[v => !!v || 'Country is required']"
-                v-model="selectedCountry"
-                :items="countries"
-                placeholder="Country"
-                variant="underlined"
-                color="teal"
-              ></v-combobox>
-            </v-col>
-          </v-row>
-          <v-divider></v-divider> -->
-
           <v-row>
             <v-col cols="1" sm="2">Country*</v-col>
             <v-col cols="12" sm="8">
               <v-select
-                v-model="selectedCountry"
-                :items="countries"
+                v-model="locationDetails[k].country"
+                :items="['India', 'US']"
                 placeholder="Country"
                 variant="underlined"
                 color="teal"
               ></v-select>
             </v-col>
           </v-row>
-          <v-divider></v-divider> 
+          <v-divider></v-divider>
 
           <v-row>
             <v-col cols="1" sm="2">Zip-Code* </v-col>
             <v-col cols="12" sm="8">
               <v-text-field
-                @input="$emit('update:zip_code', $event.target.value)"
-                :value="zip_code"
-                :rules = "zipRules"
+                v-model="locationDetails[k].zip_code"
                 placeholder="Zip-Code"
                 variant="underlined"
                 color="teal"
@@ -94,69 +74,61 @@
           </v-row>
           <v-divider></v-divider>
         </v-container>
-          <div class="add-rm-btn">
-          <v-btn
-            @click="[addMore, $emit('add-data', data)]"
-            color="#00848E"
-            variant="plain"
+        <div class="add-rm-btn">
+          <v-btn @click="addMore" color="#00848E" variant="plain"
             ><i class="fas fa-plus" aria-hidden="true"></i>Add Address</v-btn
           >
-          <v-btn variant="plain" color="#00848E" @click="[$emit('remove-data', data), remove]" 
+          <v-btn
+            variant="plain"
+            color="#00848E"
+            @click="remove"
             ><i class="fas fa-minus" aria-hidden="true"></i>Remove</v-btn
           >
         </div>
       </v-expansion-panel-text>
     </v-expansion-panel>
   </v-expansion-panels>
-  
 </template>
 
 <script>
-
-
-export default{
-    name: "Location",
-    props:{
+export default {
+  name: "Location",
+  props: {
+    location_details: {
       address_line: String,
       street_name: String,
       city: String,
       country: String,
       zip_code: String,
     },
-    data(){
-      return{
-        panel:1,
-        count:1,
-        countries:['India', 'US', 'UK', 'Qatar', 'France', 'Italy', 'Germany'],
-        zipRules: [this.selectedCountry =='India' ?
-                      v => /^[1-9]{1}[0-9]{2}\s{0,1}[0-9]{3}$/.test(v) || 'Invalid Pin code for India'
-                    : this.selectedCountry === 'US'? v => /^[0-9]{5}(-[0-9]{4})?$/.test(v) : 
-                    v => !!v || 'Zip Code is required'
-                  ]
-  }
-},
-computed: {
-    selectedCountry: {
-      // getter
-      get() {
-        return this.country
-      },
-      // setter
-      set(newValue) {
-        this.$emit('update:country', newValue)
-      }
-    }
   },
-methods:{
-    remove(){
-      if (this.count > 1){
-        this.count--
+  data() {
+    return {
+      panel: 1,
+      count: 1,
+      locationDetails: [],
+    };
+  },
+  
+  methods: {
+    remove() {
+      if (this.count > 1) {
+        this.count--;
       }
-
     },
-    addMore(){
-      this.count++
-    }
+    addMore() {
+      this.count++;
+      this.$emit("addLocation");
+    },
   },
-}
+  watch: {
+    location_details: {
+      handler(value) {
+        this.locationDetails = [...value];
+      },
+      deep: true,
+      immediate: true,
+    },
+  },
+};
 </script>

@@ -7,7 +7,7 @@
       closable
       variant="outlined"
       dense
-      >{{error}}</v-alert
+      >{{ error }}</v-alert
     >
   </div>
 
@@ -18,8 +18,7 @@
 
   <div class="nav-links">
     <router-link to="/" class="nav-link">
-      <i class="fa-regular fa-less-than"></i> Back to Home
-      Page</router-link
+      <i class="fa-regular fa-less-than"></i> Back to Home Page</router-link
     >
   </div>
 
@@ -67,25 +66,13 @@
       <small>fields indicated with * is required</small>
     </div>
     <div class="form-cont basic-detail">
-      <BasicDetails
-        v-model:name="basic.name"
-        v-model:email="basic.email"
-        v-model:phone="basic.phone"
-        v-model:image="basic.image"
-        v-model:summary="basic.summary"
-      />
+      <BasicDetails :basic="basic" />
     </div>
 
     <div class="form-cont location">
       <Location
-        v-for="(item, index) in locationDetails"
-        v-model:address_line="item.address_line"
-        v-model:street_name="item.street_name"
-        v-model:city="item.city"
-        v-model:country="item.country"
-        v-model:zip_code="item.zip_code"
-        @add-data="adder(locationDetails)"
-        @remove-data="remover(locationDetails, index)"
+        :location_details="locationDetails"
+        @addLocation="adder(locationDetails)"
       />
     </div>
 
@@ -105,24 +92,24 @@
 
     <div class="form-cont work">
       <Work
-        v-for="(item,index) in workDetails"
+        v-for="(item, index) in workDetails"
         v-model:organisation="item.organisation"
         v-model:job_role="item.job_role"
         v-model:key_roles="item.key_roles"
         v-model:start_date="item.start_date"
         v-model:end_date="item.end_date"
         @add-data="adder(workDetails)"
-        @remove-data="remover(workDetails, index, removable=true)"
+        @remove-data="remover(workDetails, index, (removable = true))"
       />
     </div>
 
     <div class="form-cont skills">
       <Skills
-        v-for="(item,index) in skillDetails"
+        v-for="(item, index) in skillDetails"
         v-model:skill="item.skill"
         v-model:rating="item.rating"
         @add-data="adder(skillDetails)"
-        @remove-data="remover(skillDetails,index)"
+        @remove-data="remover(skillDetails, index)"
       />
     </div>
 
@@ -133,7 +120,7 @@
         v-model:skills="item.skills"
         v-model:description="item.description"
         @add-data="adder(projects)"
-        @remove-data="remover(projects, index, removable=true)"
+        @remove-data="remover(projects, index, (removable = true))"
       />
     </div>
 
@@ -144,7 +131,7 @@
         v-model:user_name="item.user_name"
         v-model:url="item.url"
         @add-data="adder(socialMedia)"
-        @remove-data="remover(socialMedia, index, removable=true)"
+        @remove-data="remover(socialMedia, index, (removable = true))"
       />
     </div>
     <div class="btn-div">
@@ -157,146 +144,158 @@
 </template>
 
 <script>
-import axios from 'axios'
-import BasicDetails from '@/components/BasicDetails.vue'
-import Location from '@/components/Location.vue'
-import Education from '@/components/Education.vue'
-import Work from '@/components/Work.vue'
-import Skills from '@/components/Skills.vue'
-import Projects from '@/components/Projects.vue'
-import SocialMedia from '@/components/SocialMedia.vue'
-import Dialog from '@/components/Dialog.vue'
+import axios from "axios";
+import BasicDetails from "@/components/BasicDetails.vue";
+import Location from "@/components/Location.vue";
+import Education from "@/components/Education.vue";
+import Work from "@/components/Work.vue";
+import Skills from "@/components/Skills.vue";
+import Projects from "@/components/Projects.vue";
+import SocialMedia from "@/components/SocialMedia.vue";
+import Dialog from "@/components/Dialog.vue";
 
-  export default {
+export default {
+  name: "ResumePageView",
 
-    name:"ResumePageView",
+  data() {
+    return {
+      error: "",
+      emptyAlert: false,
+      alert: false,
+      error_alert: false,
+      dialog: false,
+      cancelDialog: false,
+      preview: true,
+      panelCount: 0,
+      cancel: true,
+      count: 1,
+      currenLastId: 0,
 
-    data(){
-      return{
-        error:'',
-        emptyAlert: false,
-        alert: false,
-        error_alert: false,
-        dialog:false,
-        cancelDialog:false,
-        preview: true,
-        panelCount:0,
-        cancel:true,
-        count:1,
-        currenLastId: 0,
+      basic: {
+        name: "",
+        email: "",
+        phone: "",
+        image: "",
+        summary: "",
+      },
 
-        basic:{
-        name: '',
-        email: '',
-        phone: '',
-        image: '',
-        summary: '',
+      locationDetails: [
+        {
+          address_line: "",
+          street_name: "",
+          city: "",
+          country: "",
+          zip_code: "",
         },
+      ],
+      skillDetails: [{ skill: "", rating: "" }],
+      socialMedia: [{ network: "", user_name: "", url: "" }],
+      projects: [{ project_title: "", skills: "", description: "" }],
+      educationDetails: [
+        {
+          qualification: "",
+          course_name: "",
+          institute_name: "",
+          location: "",
+          start_date: "",
+          end_date: "",
+        },
+      ],
+      workDetails: [
+        {
+          organisation: "",
+          job_role: "",
+          key_roles: "",
+          start_date: "",
+          end_date: "",
+        },
+      ],
+    };
+  },
+  components: {
+    BasicDetails,
+    Location,
+    Education,
+    Work,
+    Skills,
+    Projects,
+    SocialMedia,
+    Dialog,
+  },
 
-        locationDetails:[{address_line: '',street_name: '',city: '',country: '',zip_code:''},],
-        skillDetails:[{skill:'',rating:''}],
-        socialMedia:[{network:'', user_name:'', url:''}],
-        projects:[{project_title:'', skills:'', description:''}],
-        educationDetails:[{qualification:'', course_name:'',
-                          institute_name:'', location:'', start_date:'', end_date:''}],
-        workDetails:[{organisation:'', job_role:'',
-                          key_roles:'',  start_date:'', end_date:''}],
-
-        }
+  computed: {
+    failed() {
+      return this.error;
     },
-    components:{
-        BasicDetails,
-        Location,
-        Education,
-        Work,
-        Skills,
-        Projects,
-        SocialMedia,
-        Dialog
-      },
+    lastIdUpdated() {
+      return this.currenLastId;
+    },
+  },
 
-      computed:{
-        failed(){
-          return this.error
-        },
-        lastIdUpdated(){
-          return this.currenLastId
-        }
+  methods: {
+    async addBasic() {
+      console.log("calling");
+      const newResume = {
+        name: this.basic.name,
+        email_address: this.basic.email,
+        phone_number: this.basic.phone,
+        image_url: this.basic.image,
+        summary: this.basic.summary,
 
-      },
+        location_details: [...this.locationDetails],
+        social_media: [...this.socialMedia],
+        work_details: [...this.workDetails],
+        education_details: [...this.educationDetails],
+        skills: [...this.skillDetails],
+        projects: [...this.projects],
+      };
 
-
-    methods: {
-
-      async addBasic(){
-        console.log("calling")
-        const newResume={
-          name:this.basic.name,
-          email_address: this.basic.email,
-          phone_number: this.basic.phone,
-          image_url: this.basic.image,
-          summary: this.basic.summary,
-
-
-          location_details:[...this.locationDetails],
-          social_media:[...this.socialMedia],
-          work_details:[...this.workDetails],
-          education_details:[...this.educationDetails],
-          skills:[...this.skillDetails],
-          projects:[...this.projects],
-        }
-
-
-        await axios.post(`http://127.0.0.1:8000/api/new/resume`, newResume)
-        .then((res) =>{
-          console.log(res.data)
-          if(res.data.hasOwnProperty('error_message')){
-            this.error_alert = true
-            this.dialog = false
-            this.error = res.data.error_message[0].msg
+      await axios
+        .post(`http://127.0.0.1:8000/api/new/resume`, newResume)
+        .then((res) => {
+          console.log(res.data);
+          if (res.data.hasOwnProperty("error_message")) {
+            this.error_alert = true;
+            this.dialog = false;
+            this.error = res.data.error_message[0].msg;
+          } else {
+            this.currenLastId = res.data.created_id;
+            this.dialog = true;
+            this.error_alert = false;
           }
-          else{
-            this.currenLastId = res.data.created_id
-            this.dialog=true
-            this.error_alert = false
-
-          }
-          window.scrollTo(0,0)
-
+          window.scrollTo(0, 0);
         })
-        .catch((err) =>{
-          console.log(err)
-        })
+        .catch((err) => {
+          console.log(err);
+        });
+    },
 
-      },
+    adder(listDict) {
+      let keys = [];
+      for (let key in listDict[0]) {
+        keys.push(key);
+      }
+      let newDict = {};
+      keys.forEach((i) => {
+        newDict[i] = "";
+      });
+      listDict.push(newDict);
+    },
 
-      adder(listDict){
-        let keys = []
-        for(let key in listDict[0]){
-          keys.push(key)
+    remover(list, index, removable = false) {
+      if (!removable) {
+        if (list.length > 1) {
+          list.splice(index, 1);
+          this.emptyAlert = false;
+        } else {
+          this.emptyAlert = true;
         }
-        let newDict = {}
-        keys.forEach((i) => {
-          newDict[i] = ''
-        })
-        listDict.push(newDict)
-      },
-
-      remover(list, index, removable=false){
-        if (!removable){
-          if(list.length > 1){
-          list.splice(index, 1)
-          this.emptyAlert = false
-      }else{
-        this.emptyAlert = true
+      } else {
+        list.splice(index, 1);
       }
-    }
-      else{
-        list.splice(index, 1)
-      }
-    }
-  }
-  }
+    },
+  },
+};
 </script>
 
 <style scoped>
